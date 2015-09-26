@@ -57,7 +57,7 @@ class Generator extends YiiGiiCrudGenerator
 
     public function generate()
     {
-        $searchModel = Yii::getAlias('@' . str_replace('\\', '/', ltrim($this->searchModelClass, '\\') . '.php'));
-        return [new CodeFile($searchModel, $this->render('search.php'))];
+        $searchModelPath = Yii::getAlias('@' . str_replace('\\', '/', ltrim($this->searchModelClass, '\\') . '.php'));
+        return [new CodeFile($searchModelPath, $this->render('search.php'))];
     }
 }

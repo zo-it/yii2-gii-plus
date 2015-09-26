@@ -26,6 +26,8 @@ class Generator extends YiiGiiModelGenerator
         $key = array_search('searchModelClass', $attributes);
         if ($key !== false) {
             $attributes[$key] = 'newModelClass';
+        } else {
+            $attributes[] = 'newModelClass';
         }
         return $attributes;
     }
@@ -57,7 +59,7 @@ class Generator extends YiiGiiModelGenerator
 
     public function generate()
     {
-        $newModel = Yii::getAlias('@' . str_replace('\\', '/', ltrim($this->newModelClass, '\\') . '.php'));
-        return [new CodeFile($newModel, $this->render('search.php'))];
+        $newModelPath = Yii::getAlias('@' . str_replace('\\', '/', ltrim($this->newModelClass, '\\') . '.php'));
+        return [new CodeFile($newModelPath, $this->render('search.php'))];
     }
 }
