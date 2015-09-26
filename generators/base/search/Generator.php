@@ -37,4 +37,9 @@ class Generator extends YiiGiiCrudGenerator
         }
         return $rules;
     }
+
+    public function requiredTemplates()
+    {
+        return ['search.php'];
+    }
 }
