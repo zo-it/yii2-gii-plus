@@ -22,6 +22,11 @@ class Generator extends YiiGiiCrudGenerator
 
     public function attributes()
     {
-        return array_diff(parent::attributes(), ['controllerClass', 'viewPath', 'baseControllerClass', 'indexWidgetType']);
+        $attributes = array_diff(parent::attributes(), ['controllerClass', 'viewPath', 'baseControllerClass', 'indexWidgetType']);
+        $key = array_search('searchModelClass', $attributes);
+        if ($key !== false) {
+            $attributes[$key] = 'endModelClass';
+        }
+        return $attributes;
     }
 }
