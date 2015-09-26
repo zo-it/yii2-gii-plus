@@ -10,7 +10,7 @@ use yii\gii\CodeFile,
 class Generator extends YiiGiiCrudGenerator
 {
 
-    public $endModelClass;
+    public $newModelClass;
 
     public function getName()
     {
@@ -27,7 +27,7 @@ class Generator extends YiiGiiCrudGenerator
         $attributes = array_diff(parent::attributes(), ['controllerClass', 'viewPath', 'baseControllerClass', 'indexWidgetType']);
         $key = array_search('searchModelClass', $attributes);
         if ($key !== false) {
-            $attributes[$key] = 'endModelClass';
+            $attributes[$key] = 'newModelClass';
         }
         return $attributes;
     }
@@ -35,14 +35,14 @@ class Generator extends YiiGiiCrudGenerator
     public function rules()
     {
         $attributes = $this->attributes();
-        $rules = [['endModelClass', 'required']];
+        $rules = [['newModelClass', 'required']];
         foreach (parent::rules() as $rule) {
             if (!is_array($rule[0])) {
                 $rule[0] = [$rule[0]];
             }
             $key = array_search('searchModelClass', $rule[0]);
             if ($key !== false) {
-                $rule[0][$key] = 'endModelClass';
+                $rule[0][$key] = 'newModelClass';
             }
             $rule[0] = array_intersect($rule[0], $attributes);
             if (count($rule[0])) {
@@ -59,7 +59,7 @@ class Generator extends YiiGiiCrudGenerator
 
     public function generate()
     {
-        $endModel = Yii::getAlias('@' . str_replace('\\', '/', ltrim($this->endModelClass, '\\') . '.php'));
-        return [new CodeFile($endModel, $this->render('model.php'))];
+        $newModel = Yii::getAlias('@' . str_replace('\\', '/', ltrim($this->newModelClass, '\\') . '.php'));
+        return [new CodeFile($newModel, $this->render('model.php'))];
     }
 }
