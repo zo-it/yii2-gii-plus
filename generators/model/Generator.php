@@ -40,12 +40,12 @@ class Generator extends YiiGiiCrudGenerator
             if (!is_array($rule[0])) {
                 $rule[0] = [$rule[0]];
             }
+            $key = array_search('searchModelClass', $rule[0]);
+            if ($key !== false) {
+                $rule[0][$key] = 'endModelClass';
+            }
             $rule[0] = array_intersect($rule[0], $attributes);
             if (count($rule[0])) {
-                $key = array_search('searchModelClass', $rule[0]);
-                if ($key !== false) {
-                    $rule[0][$key] = 'endModelClass';
-                }
                 $rules[] = $rule;
             }
         }
