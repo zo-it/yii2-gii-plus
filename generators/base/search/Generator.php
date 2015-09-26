@@ -27,9 +27,10 @@ class Generator extends YiiGiiCrudGenerator
 
     public function rules()
     {
+        $attributes = $this->attributes();
         $rules = [['searchModelClass', 'required']];
         foreach (parent::rules() as $rule) {
-            $rule[0] = array_diff((array)$rule[0], ['controllerClass', 'viewPath', 'baseControllerClass', 'indexWidgetType']);
+            $rule[0] = array_intersect((array)$rule[0], $attributes);
             if (count($rule[0])) {
                 $rules[] = $rule;
             }
