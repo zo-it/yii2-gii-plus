@@ -16,10 +16,10 @@ class Generator extends YiiGiiModelGenerator
         return 'Base Model Generator';
     }
 
-    public function init()
+    public function generate()
     {
-        parent::init();
         $this->use = array_filter(array_map('trim', explode(',', $this->use)), 'strlen');
+        return parent::generate();
     }
 
     public function defaultTemplate()
