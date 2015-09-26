@@ -29,4 +29,21 @@ class Generator extends YiiGiiCrudGenerator
         }
         return $attributes;
     }
+
+    public function rules()
+    {
+        $attributes = $this->attributes();
+        $rules = [['endModelClass', 'required']];
+        foreach (parent::rules() as $rule) {
+            $rule[0] = array_intersect((array)$rule[0], $attributes);
+            if (count($rule[0])) {
+                $key = array_search('searchModelClass', $rule[0]);
+                if ($key !== false) {
+                    $rule[0][$key] = 'endModelClass';
+                }
+                $rules[] = $rule;
+            }
+        }
+        return $rules;
+    }
 }
