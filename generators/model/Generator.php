@@ -2,7 +2,9 @@
 
 namespace yii\gii\plus\generators\model;
 
-use yii\gii\generators\crud\Generator as YiiGiiCrudGenerator;
+use yii\gii\CodeFile,
+    Yii,
+    yii\gii\generators\crud\Generator as YiiGiiCrudGenerator;
 
 
 class Generator extends YiiGiiCrudGenerator
@@ -48,5 +50,16 @@ class Generator extends YiiGiiCrudGenerator
             }
         }
         return $rules;
+    }
+
+    public function requiredTemplates()
+    {
+        return ['model.php'];
+    }
+
+    public function generate()
+    {
+        $endModel = Yii::getAlias('@' . str_replace('\\', '/', ltrim($this->endModelClass, '\\') . '.php'));
+        return [new CodeFile($endModel, $this->render('model.php'))];
     }
 }
