@@ -1,4 +1,6 @@
 <?php
+use yii\helpers\Inflector;
+
 /* @var $this yii\web\View */
 /* @var $generator yii\gii\plus\generators\model\Generator */
 
@@ -25,17 +27,18 @@ class <?php echo $generator->getNewQueryName(); ?> extends <?php echo $generator
      * @return self
      */
 <?php if (count($primaryKey) == 1) { ?>
-    public function <?php echo $primaryKey[0]; ?>($<?php echo $primaryKey[0]; ?>)
+    public function pk($<?php echo Inflector::camelize($primaryKey[0]); ?>)
     {
-        return $this->andWhere([$this->getAlias() . '.`<?php echo $primaryKey[0]; ?>`' => $<?php echo $primaryKey[0]; ?>]);
+        return $this->andWhere([$this->getAlias() . '.`<?php echo $primaryKey[0]; ?>`' => $<?php echo Inflector::camelize($primaryKey[0]); ?>]);
     }
 <?php } else { ?>
-    public function <?php echo implode($primaryKey); ?>($<?php echo implode(', $', $primaryKey); ?>)
+    public function pk($<?php echo implode(', $', array_map(['yii\helpers\Inflector', 'camelize'], $primaryKey)); ?>)
     {
         $alias = $this->getAlias();
         return $this->andWhere([
 <?php foreach ($primaryKey as $column) { ?>
-            $alias . '.`<?php echo $column; ?>`' => $<?php echo $column; ?>
+            $alias . '.`<?php echo $column; ?>`' => $<?php echo Inflector::camelize($column); ?>
+
 <?php } ?>
         ]);
     }
