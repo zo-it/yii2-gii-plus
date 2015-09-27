@@ -3,8 +3,9 @@
 namespace yii\gii\plus\console;
 
 use yii\console\Controller,
-    yii\base\NotSupportedException,
+    yii\helpers\Inflector,
     yii\base\InvalidParamException,
+    yii\base\NotSupportedException,
     PDO,
     Yii;
 
@@ -55,33 +56,34 @@ class GenerateController extends Controller
 
     protected function getCommand($tableName)
     {
+        $className = Inflector::classify($tableName);
         $s = [
             './yii gii/base-model \\',
             '  --tableName="' . $tableName . '" \\',
             '  --ns="app\\models\\base" \\',
-            '  --modelClass="GoodBase" \\',
+            '  --modelClass="' . $className . 'Base" \\',
             '  --baseClass="yii\\boost\\db\\ActiveRecord" \\',
             '  --generateLabelsFromComments=1 \\',
             '  --generateQuery=1 \\',
             '  --queryNs="app\\models\\query\\base" \\',
-            '  --queryClass="GoodQueryBase" \\',
+            '  --queryClass="' . $className . 'QueryBase" \\',
             '  --queryBaseClass="yii\\boost\\db\\ActiveQuery" \\',
             '  --interactive=0 \\',
             '  --overwrite=1 && \\',
             './yii gii/model \\',
-            '  --modelClass="app\\models\\base\\GoodBase" \\',
-            '  --newModelClass="app\\models\\Good" \\',
-            '  --newQueryClass="app\\models\\query\\GoodQuery" \\',
+            '  --modelClass="app\\models\\base\\' . $className . 'Base" \\',
+            '  --newModelClass="app\\models\\' . $className . '" \\',
+            '  --newQueryClass="app\\models\\query\\' . $className . 'Query" \\',
             '  --interactive=0 \\',
             '  --overwrite=0 && \\',
             './yii gii/base-search \\',
-            '  --modelClass="app\\models\\Good" \\',
-            '  --searchModelClass="app\\models\\search\\base\\GoodSearchBase" \\',
+            '  --modelClass="app\\models\\' . $className . '" \\',
+            '  --searchModelClass="app\\models\\search\\base\\' . $className . 'SearchBase" \\',
             '  --interactive=0 \\',
             '  --overwrite=1 && \\',
             './yii gii/search \\',
-            '  --modelClass="app\\models\\search\\base\\GoodSearchBase" \\',
-            '  --newModelClass="app\\models\\search\\GoodSearch" \\',
+            '  --modelClass="app\\models\\search\\base\\' . $className . 'SearchBase" \\',
+            '  --newModelClass="app\\models\\search\\' . $className . 'Search" \\',
             '  --interactive=0 \\',
             '  --overwrite=0'
         ];
