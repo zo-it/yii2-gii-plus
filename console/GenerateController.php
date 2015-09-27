@@ -93,7 +93,7 @@ class GenerateController extends Controller
     public function actionRunCommands()
     {
         foreach ($this->getTableNames() as $tableName) {
-            $this->run($this->getCommand($tableName));
+            passthru($this->getCommand($tableName));
         }
     }
 
@@ -102,7 +102,7 @@ class GenerateController extends Controller
         if (!in_array($tableName, $this->getTableNames())) {
             throw new InvalidParamException;
         }
-        $this->run($this->getCommand($tableName));
+        passthru($this->getCommand($tableName));
     }
 
     public function actionIndex()
