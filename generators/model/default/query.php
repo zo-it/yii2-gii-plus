@@ -19,6 +19,9 @@ class <?php echo $generator->getNewQueryName(); ?> extends <?php echo $generator
 
 {
 
+    /**
+     * @inheritdoc
+     */
     /*public function init()
     {
         parent::init();
