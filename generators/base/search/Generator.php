@@ -11,6 +11,11 @@ use yii\gii\CodeFile,
 class Generator extends YiiGiiCrudGenerator
 {
 
+    public $modelClass;
+    private $controllerClass;
+    private $viewPath;
+    private $baseControllerClass;
+    private $indexWidgetType;
     public $searchModelClass;
 
     public function getName()
@@ -21,11 +26,6 @@ class Generator extends YiiGiiCrudGenerator
     public function getDescription()
     {
         return '';
-    }
-
-    public function attributes()
-    {
-        return array_diff(parent::attributes(), ['controllerClass', 'viewPath', 'baseControllerClass', 'indexWidgetType']);
     }
 
     public function rules()
