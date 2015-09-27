@@ -5,10 +5,10 @@ namespace yii\gii\plus\generators\search;
 use yii\gii\CodeFile,
     yii\helpers\StringHelper,
     Yii,
-    yii\gii\generators\model\Generator as YiiGiiModelGenerator;
+    yii\gii\generators\crud\Generator as YiiGiiCrudGenerator;
 
 
-class Generator extends YiiGiiModelGenerator
+class Generator extends YiiGiiCrudGenerator
 {
 
     public $newModelClass;
