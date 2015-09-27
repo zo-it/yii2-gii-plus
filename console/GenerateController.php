@@ -4,6 +4,7 @@ namespace yii\gii\plus\console;
 
 use yii\console\Controller,
     yii\base\NotSupportedException,
+    yii\base\InvalidParamException,
     PDO,
     Yii;
 
@@ -40,15 +41,23 @@ class GenerateController extends Controller
     public function actionShowCommands()
     {
         foreach ($this->getTableNames() as $tableName) {
-            $this->actionShowCommand($tableName);
+            $this->stdout(implode("\n", $this->getCommand($tableName)) . "\n\n");
         }
     }
 
     public function actionShowCommand($tableName)
     {
+        if (!in_array($tableName, $this->getTableNames())) {
+            throw new InvalidParamException;
+        }
+        $this->stdout(implode("\n", $this->getCommand($tableName)) . "\n\n");
+    }
+
+    protected function getCommand($tableName)
+    {
         $s = [
             './yii gii/base-model \\',
-            '  --tableName="good" \\',
+            '  --tableName="' . $tableName . '" \\',
             '  --ns="app\\models\\base" \\',
             '  --modelClass="GoodBase" \\',
             '  --baseClass="yii\\boost\\db\\ActiveRecord" \\',
@@ -76,7 +85,7 @@ class GenerateController extends Controller
             '  --interactive=0 \\',
             '  --overwrite=0'
         ];
-        $this->stdout(implode("\n", $s) . "\n\n");
+        return implode("\n", $s);
     }
 
     public function actionIndex()
