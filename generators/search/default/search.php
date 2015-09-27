@@ -14,4 +14,20 @@ namespace <?php echo $generator->getNewModelNamespace(); ?>;
 class <?php echo $generator->getNewModelName(); ?> extends <?php echo $generator->getModelAlias(); ?>
 
 {
+
+    /**
+     * @inheritdoc
+     */
+    public function beforeValidate()
+    {
+        return Model::beforeValidate();
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function afterValidate()
+    {
+        Model::afterValidate();
+    }
 }

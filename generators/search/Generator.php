@@ -101,7 +101,7 @@ class Generator extends YiiGiiModelGenerator
 
     public function getModelUseDirective()
     {
-        $use = [];
+        $use = ['yii\base\Model'];
         if ($this->getModelNamespace() != $this->getNewModelNamespace()) {
             $modelAlias = $this->getModelAlias();
             if ($modelAlias == $this->getModelName()) {
