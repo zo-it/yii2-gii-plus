@@ -5,6 +5,7 @@
 echo '<?php';
 ?>
 
+
 namespace <?php echo $generator->getNewQueryNamespace(); ?>;
 
 use Yii;
@@ -13,4 +14,9 @@ use Yii;
 class <?php echo $generator->getNewQueryName(); ?> extends <?php echo $generator->getQueryName(); ?>
 
 {
+
+    public function init()
+    {
+        parent::init();
+    }
 }

@@ -5,6 +5,7 @@
 echo '<?php';
 ?>
 
+
 namespace <?php echo $generator->getNewModelNamespace(); ?>;
 
 use Yii;

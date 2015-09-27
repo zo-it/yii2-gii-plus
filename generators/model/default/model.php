@@ -5,6 +5,7 @@
 echo '<?php';
 ?>
 
+
 namespace <?php echo $generator->getNewModelNamespace(); ?>;
 
 use Yii;
@@ -13,4 +14,13 @@ use Yii;
 class <?php echo $generator->getNewModelName(); ?> extends <?php echo $generator->getModelName(); ?>
 
 {
+
+    /**
+     * @inheritdoc
+     * @return <?php echo $generator->getNewQueryName(); ?> the active query used by this AR class.
+     */
+    public static function find()
+    {
+        return Yii::createObject(<?php echo $generator->getNewQueryName(); ?>::className(), [get_called_class()]);
+    }
 }
