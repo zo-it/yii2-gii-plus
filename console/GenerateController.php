@@ -3,6 +3,7 @@
 namespace yii\gii\plus\console;
 
 use yii\console\Controller,
+    yii\base\NotSupportedException,
     PDO,
     Yii;
 
@@ -10,13 +11,23 @@ use yii\console\Controller,
 class GenerateController extends Controller
 {
 
-    public function actionShowTables()
+    protected function getTables()
     {
         $db = Yii::$app->getDb();
-        $db->open();
-        $driverName = $db->pdo->getAttribute(PDO::ATTR_DRIVER_NAME);
-        var_dump($driverName);
-        var_dump($db->createCommand('SHOW TABLES;')->queryColumn());
+        if (!$db->getIsActive()) {
+            $db->open();
+        }
+        switch ($db->pdo->getAttribute(PDO::ATTR_DRIVER_NAME)) {
+            case 'mysql':
+                return $db->createCommand('SHOW TABLES;')->queryColumn();
+            default:
+                throw new NotSupportedException;
+        }
+    }
+
+    public function actionShowTables()
+    {
+        $this->stdout(print_r($this->getTables(), true));
     }
 
     public function actionIndex()
