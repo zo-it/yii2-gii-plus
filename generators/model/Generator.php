@@ -11,12 +11,6 @@ use yii\gii\CodeFile,
 class Generator extends YiiGiiCrudGenerator
 {
 
-    public $modelClass;
-    protected $controllerClass;
-    protected $viewPath;
-    protected $baseControllerClass;
-    protected $indexWidgetType;
-    protected $searchModelClass;
     public $newModelClass;
     public $newQueryClass;
 
@@ -28,6 +22,12 @@ class Generator extends YiiGiiCrudGenerator
     public function getDescription()
     {
         return '';
+    }
+
+    public function attributes()
+    {
+        $attributes = array_diff(parent::attributes(), ['controllerClass', 'viewPath', 'baseControllerClass', 'indexWidgetType', 'searchModelClass']);
+        return array_merge($attributes, ['newModelClass', 'newQueryClass']);
     }
 
     public function rules()

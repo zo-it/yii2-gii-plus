@@ -11,12 +11,6 @@ use yii\gii\CodeFile,
 class Generator extends YiiGiiModelGenerator
 {
 
-    public $modelClass;
-    protected $controllerClass;
-    protected $viewPath;
-    protected $baseControllerClass;
-    protected $indexWidgetType;
-    protected $searchModelClass;
     public $newModelClass;
 
     public function getName()
@@ -27,6 +21,12 @@ class Generator extends YiiGiiModelGenerator
     public function getDescription()
     {
         return '';
+    }
+
+    public function attributes()
+    {
+        $attributes = array_diff(parent::attributes(), ['controllerClass', 'viewPath', 'baseControllerClass', 'indexWidgetType', 'searchModelClass']);
+        return array_merge($attributes, ['newModelClass']);
     }
 
     public function rules()
