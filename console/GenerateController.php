@@ -37,6 +37,27 @@ class GenerateController extends Controller
         }
     }
 
+    public function actionShowCommands()
+    {
+        foreach ($this->getTableNames() as $tableName) {
+            $s = [
+                './yii gii/base-model \\',
+                '--tableName="good" \\',
+                '--ns="app\\models\\base" \\',
+                '--modelClass="GoodBase" \\',
+                '--baseClass="yii\\boost\\db\\ActiveRecord" \\',
+                '--generateLabelsFromComments=1 \\',
+                '--generateQuery=1 \\',
+                '--queryNs="app\\models\\queries\\base" \\',
+                '--queryClass="GoodQueryBase" \\',
+                '--queryBaseClass="yii\\boost\\db\\ActiveQuery" \\',
+                '--interactive=0 \\',
+                '--overwrite=1'
+            ];
+            $this->stdout(implode("\n", $s) . "\n");
+        }
+    }
+
     public function actionIndex()
     {
         $this->run('/help', ['gii-plus']);
