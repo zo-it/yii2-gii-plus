@@ -2,4 +2,15 @@
 /* @var $this yii\web\View */
 /* @var $generator yii\gii\plus\generators\model\Generator */
 
-echo '<?php' . "\n";
+echo '<?php';
+?>
+
+namespace <?php echo $generator->getNewQueryNamespace(); ?>;
+
+use Yii;
+
+
+class <?php echo $generator->getNewQueryName(); ?> extends <?php echo $generator->getQueryName(); ?>
+
+{
+}

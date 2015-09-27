@@ -80,4 +80,21 @@ class Generator extends YiiGiiCrudGenerator
     {
         return StringHelper::basename($this->modelClass);
     }
+
+    public function getNewQueryNamespace()
+    {
+        return StringHelper::dirname(ltrim($this->newQueryClass, '\\'));
+    }
+
+    public function getNewQueryName()
+    {
+        return StringHelper::basename($this->newQueryClass);
+    }
+
+    public function getQueryName()
+    {
+        /* @var $modelClass \yii\db\BaseActiveRecord */
+        $modelClass = $this->modelClass;
+        return StringHelper::basename(get_class($modelClass::find()));
+    }
 }
