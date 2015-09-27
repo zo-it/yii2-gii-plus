@@ -3,6 +3,7 @@
 namespace yii\gii\plus\generators\search;
 
 use yii\gii\CodeFile,
+    yii\helpers\Inflector,
     yii\helpers\StringHelper,
     Yii,
     yii\gii\generators\crud\Generator as YiiGiiCrudGenerator;
@@ -52,6 +53,17 @@ class Generator extends YiiGiiCrudGenerator
     public function requiredTemplates()
     {
         return ['search.php'];
+    }
+
+    public function beforeValidate()
+    {
+        if (is_null($this->newModelClass)) {
+            /* @var $modelClass \yii\db\ActiveRecord */
+            $modelClass = $this->getModelClass();
+            $className = Inflector::classify($modelClass::tableName());
+            $this->newModelClass = 'app\models\search\\' . $className . 'Search';
+        }
+        return parent::beforeValidate();
     }
 
     public function generate()

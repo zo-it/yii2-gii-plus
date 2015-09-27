@@ -3,8 +3,8 @@
 namespace yii\gii\plus\generators\base\search;
 
 use yii\gii\CodeFile,
-    ReflectionClass,
     yii\helpers\Inflector,
+    ReflectionClass,
     Yii,
     yii\gii\generators\crud\Generator as YiiGiiCrudGenerator;
 
