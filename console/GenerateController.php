@@ -48,7 +48,7 @@ class GenerateController extends Controller
                 '--baseClass="yii\\boost\\db\\ActiveRecord" \\',
                 '--generateLabelsFromComments=1 \\',
                 '--generateQuery=1 \\',
-                '--queryNs="app\\models\\queries\\base" \\',
+                '--queryNs="app\\models\\query\\base" \\',
                 '--queryClass="GoodQueryBase" \\',
                 '--queryBaseClass="yii\\boost\\db\\ActiveQuery" \\',
                 '--interactive=0 \\',
@@ -59,7 +59,23 @@ class GenerateController extends Controller
                 './yii gii/model \\',
                 '--modelClass="app\\models\\base\\GoodBase" \\',
                 '--newModelClass="app\\models\\Good" \\',
-                '--newQueryClass="app\\models\\queries\\GoodQuery" \\',
+                '--newQueryClass="app\\models\\query\\GoodQuery" \\',
+                '--interactive=0 \\',
+                '--overwrite=0'
+            ];
+            $this->stdout(implode("\n", $s) . "\n");
+            $s = [
+                './yii gii/base-search \\',
+                '--modelClass="app\\models\\Good" \\',
+                '--searchModelClass="app\\models\\search\\base\\GoodSearchBase" \\',
+                '--interactive=0 \\',
+                '--overwrite=1'
+            ];
+            $this->stdout(implode("\n", $s) . "\n");
+            $s = [
+                './yii gii/search \\',
+                '--modelClass="app\\models\\search\\base\\GoodSearchBase" \\',
+                '--newModelClass="app\\models\\search\\GoodSearch" \\',
                 '--interactive=0 \\',
                 '--overwrite=0'
             ];
