@@ -32,28 +32,6 @@ class GenerateController extends Controller
         return $command->queryColumn();
     }
 
-    public function actionShowTables()
-    {
-        foreach ($this->getTableNames() as $tableName) {
-            $this->stdout($tableName . "\n");
-        }
-    }
-
-    public function actionShowCommands()
-    {
-        foreach ($this->getTableNames() as $tableName) {
-            $this->stdout($this->getCommand($tableName) . "\n\n");
-        }
-    }
-
-    public function actionShowCommand($tableName)
-    {
-        if (!in_array($tableName, $this->getTableNames())) {
-            throw new InvalidParamException;
-        }
-        $this->stdout($this->getCommand($tableName) . "\n");
-    }
-
     protected function getCommand($tableName)
     {
         $className = Inflector::classify($tableName);
@@ -88,6 +66,43 @@ class GenerateController extends Controller
             '  --overwrite=0'
         ];
         return implode("\n", $s);
+    }
+
+    public function actionShowTables()
+    {
+        foreach ($this->getTableNames() as $tableName) {
+            $this->stdout($tableName . "\n");
+        }
+    }
+
+    public function actionShowCommands()
+    {
+        foreach ($this->getTableNames() as $tableName) {
+            $this->stdout($this->getCommand($tableName) . "\n\n");
+        }
+    }
+
+    public function actionShowCommand($tableName)
+    {
+        if (!in_array($tableName, $this->getTableNames())) {
+            throw new InvalidParamException;
+        }
+        $this->stdout($this->getCommand($tableName) . "\n");
+    }
+
+    public function actionRunCommands()
+    {
+        foreach ($this->getTableNames() as $tableName) {
+            $this->run($this->getCommand($tableName));
+        }
+    }
+
+    public function actionRunCommand($tableName)
+    {
+        if (!in_array($tableName, $this->getTableNames())) {
+            throw new InvalidParamException;
+        }
+        $this->run($this->getCommand($tableName));
     }
 
     public function actionIndex()
