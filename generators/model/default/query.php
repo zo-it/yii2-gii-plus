@@ -14,10 +14,10 @@ class <?php echo $generator->getNewQueryName(); ?> extends <?php echo $generator
 
 {
 
-    public function init()
+    /*public function init()
     {
         parent::init();
-    }
+    }*/
 
     /**
      * @return self
