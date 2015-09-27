@@ -19,15 +19,15 @@ class GenerateController extends Controller
         }
         switch ($db->pdo->getAttribute(PDO::ATTR_DRIVER_NAME)) {
             case 'mysql':
-                $sql = 'SHOW TABLES;';
+                $command = $db->createCommand('SHOW TABLES;');
                 break;
             case 'pgsql':
-                $sql = 'SELECT table_name FROM information_schema.tables WHERE table_schema = \'public\';';
+                $command = $db->createCommand('SELECT table_name FROM information_schema.tables WHERE table_schema = :table_schema;', [':table_schema' => 'public']);
                 break;
             default:
                 throw new NotSupportedException;
         }
-        return $db->createCommand($sql)->queryColumn();
+        return $command->queryColumn();
     }
 
     public function actionShowTables()
