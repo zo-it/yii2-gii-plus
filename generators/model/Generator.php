@@ -81,6 +81,15 @@ class Generator extends YiiGiiCrudGenerator
         return StringHelper::basename($this->getModelClass());
     }
 
+    public function getModelAlias()
+    {
+        $modelAlias = $this->getModelName();
+        if ($modelAlias == $this->getNewModelName()) {
+            $modelAlias .= 'Base';
+        }
+        return $modelAlias;
+    }
+
     public function getQueryClass()
     {
         /* @var $modelClass \yii\db\BaseActiveRecord */
@@ -96,6 +105,15 @@ class Generator extends YiiGiiCrudGenerator
     public function getQueryName()
     {
         return StringHelper::basename($this->getQueryClass());
+    }
+
+    public function getQueryAlias()
+    {
+        $queryAlias = $this->getQueryName();
+        if ($queryAlias == $this->getNewQueryName()) {
+            $queryAlias .= 'Base';
+        }
+        return $queryAlias;
     }
 
     public function getNewModelClass()
