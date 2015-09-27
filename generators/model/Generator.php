@@ -3,6 +3,7 @@
 namespace yii\gii\plus\generators\model;
 
 use yii\gii\CodeFile,
+    yii\helpers\Inflector,
     yii\helpers\StringHelper,
     Yii,
     yii\gii\generators\crud\Generator as YiiGiiCrudGenerator;
@@ -54,6 +55,23 @@ class Generator extends YiiGiiCrudGenerator
     public function requiredTemplates()
     {
         return ['model.php', 'query.php'];
+    }
+
+    public function beforeValidate()
+    {
+        if (is_null($this->newModelClass)) {
+            /* @var $modelClass \yii\db\ActiveRecord */
+            $modelClass = $this->getModelClass();
+            $className = Inflector::classify($modelClass::tableName());
+            $this->newModelClass = 'app\models\\' . $className;
+        }
+        if (is_null($this->newQueryClass)) {
+            /* @var $modelClass \yii\db\ActiveRecord */
+            $modelClass = $this->getModelClass();
+            $className = Inflector::classify($modelClass::tableName());
+            $this->newQueryClass = 'app\models\query\\' . $className . 'Query';
+        }
+        return parent::beforeValidate();
     }
 
     public function generate()
