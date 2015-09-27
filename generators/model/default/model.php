@@ -2,16 +2,15 @@
 /* @var $this yii\web\View */
 /* @var $generator yii\gii\plus\generators\model\Generator */
 
-echo '<?php' . "\n";
+echo '<?php';
 ?>
-namespace yii\gii\plus\generators\model;
 
-use yii\gii\CodeFile,
-    Yii,
-    yii\gii\generators\crud\Generator as YiiGiiCrudGenerator;
+namespace <?php echo $generator->getNewModelNamespace(); ?>;
+
+use Yii;
 
 
-class Generator extends YiiGiiCrudGenerator
+class <?php echo $generator->getNewModelName(); ?> extends <?php echo $generator->getModelName(); ?>
+
 {
-
 }

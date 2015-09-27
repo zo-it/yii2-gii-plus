@@ -3,6 +3,7 @@
 namespace yii\gii\plus\generators\search;
 
 use yii\gii\CodeFile,
+    yii\helpers\StringHelper,
     Yii,
     yii\gii\generators\model\Generator as YiiGiiModelGenerator;
 
@@ -57,5 +58,20 @@ class Generator extends YiiGiiModelGenerator
     {
         $newModelPath = Yii::getAlias('@' . str_replace('\\', '/', ltrim($this->newModelClass, '\\') . '.php'));
         return [new CodeFile($newModelPath, $this->render('search.php'))];
+    }
+
+    public function getNewModelNamespace()
+    {
+        return StringHelper::dirname(ltrim($this->newModelClass, '\\'));
+    }
+
+    public function getNewModelName()
+    {
+        return StringHelper::basename($this->newModelClass);
+    }
+
+    public function getModelName()
+    {
+        return StringHelper::basename($this->modelClass);
     }
 }

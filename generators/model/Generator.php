@@ -3,6 +3,7 @@
 namespace yii\gii\plus\generators\model;
 
 use yii\gii\CodeFile,
+    yii\helpers\StringHelper,
     Yii,
     yii\gii\generators\crud\Generator as YiiGiiCrudGenerator;
 
@@ -63,5 +64,20 @@ class Generator extends YiiGiiCrudGenerator
             new CodeFile($newModelPath, $this->render('model.php')),
             new CodeFile($newQueryPath, $this->render('query.php'))
         ];
+    }
+
+    public function getNewModelNamespace()
+    {
+        return StringHelper::dirname(ltrim($this->newModelClass, '\\'));
+    }
+
+    public function getNewModelName()
+    {
+        return StringHelper::basename($this->newModelClass);
+    }
+
+    public function getModelName()
+    {
+        return StringHelper::basename($this->modelClass);
     }
 }
