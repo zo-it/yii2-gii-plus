@@ -12,10 +12,10 @@ class Generator extends YiiGiiCrudGenerator
 {
 
     public $modelClass;
-    private $controllerClass;
-    private $viewPath;
-    private $baseControllerClass;
-    private $indexWidgetType;
+    protected $controllerClass;
+    protected $viewPath;
+    protected $baseControllerClass;
+    protected $indexWidgetType;
     public $searchModelClass;
 
     public function getName()

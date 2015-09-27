@@ -12,11 +12,11 @@ class Generator extends YiiGiiModelGenerator
 {
 
     public $modelClass;
-    private $controllerClass;
-    private $viewPath;
-    private $baseControllerClass;
-    private $indexWidgetType;
-    private $searchModelClass;
+    protected $controllerClass;
+    protected $viewPath;
+    protected $baseControllerClass;
+    protected $indexWidgetType;
+    protected $searchModelClass;
     public $newModelClass;
 
     public function getName()
