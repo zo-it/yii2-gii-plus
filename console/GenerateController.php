@@ -42,7 +42,7 @@ class GenerateController extends Controller
     public function actionShowCommands()
     {
         foreach ($this->getTableNames() as $tableName) {
-            $this->stdout(implode("\n", $this->getCommand($tableName)) . "\n\n");
+            $this->stdout($this->getCommand($tableName) . "\n\n");
         }
     }
 
@@ -51,7 +51,7 @@ class GenerateController extends Controller
         if (!in_array($tableName, $this->getTableNames())) {
             throw new InvalidParamException;
         }
-        $this->stdout(implode("\n", $this->getCommand($tableName)) . "\n\n");
+        $this->stdout($this->getCommand($tableName) . "\n");
     }
 
     protected function getCommand($tableName)
