@@ -131,6 +131,9 @@ class Generator extends YiiGiiCrudGenerator
     public function getModelUseDirective()
     {
         $use = ['Yii'];
+        if ($this->getNewModelNamespace() != $this->getModelNamespace()) {
+            $use[] = $this->getModelClass();
+        }
         if ($this->getNewModelNamespace() != $this->getNewQueryNamespace()) {
             $use[] = $this->getNewQueryClass();
         }
@@ -140,6 +143,15 @@ class Generator extends YiiGiiCrudGenerator
 
     public function getQueryUseDirective()
     {
-        return '';
+        $use = [];
+        if ($this->getNewQueryNamespace() != $this->getQueryNamespace()) {
+            $use[] = $this->getQueryClass();
+        }
+        if (count($use)) {
+            $useDirective = 'use ' . implode(',' . "\n" . '    ', $use) . ';';
+            return $useDirective . "\n\n";
+        } else {
+            return '';
+        }
     }
 }
