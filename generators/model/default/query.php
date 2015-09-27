@@ -33,7 +33,7 @@ class <?php echo $generator->getNewQueryName(); ?> extends <?php echo $generator
 <?php if (count($primaryKey) == 1) { ?>
     public function pk($<?php echo Inflector::variablize($primaryKey[0]); ?>)
     {
-        return $this->andWhere([$this->getAlias() . '.`<?php echo $primaryKey[0]; ?>`' => $<?php echo Inflector::variablize($primaryKey[0]); ?>]);
+        return $this->andWhere([$this->getAlias() . '.<?php echo $primaryKey[0]; ?>' => $<?php echo Inflector::variablize($primaryKey[0]); ?>]);
     }
 <?php } else { ?>
     public function pk($<?php echo implode(', $', array_map(['yii\helpers\Inflector', 'variablize'], $primaryKey)); ?>)
@@ -41,7 +41,7 @@ class <?php echo $generator->getNewQueryName(); ?> extends <?php echo $generator
         $alias = $this->getAlias();
         return $this->andWhere([
 <?php foreach ($primaryKey as $i => $column) { ?>
-            $alias . '.`<?php echo $column; ?>`' => $<?php echo Inflector::variablize($column); if ($i < count($primaryKey) - 1) { echo ','; } ?>
+            $alias . '.<?php echo $column; ?>' => $<?php echo Inflector::variablize($column); if ($i < count($primaryKey) - 1) { echo ','; } ?>
 
 <?php } ?>
         ]);
