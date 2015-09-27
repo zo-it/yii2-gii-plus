@@ -75,6 +75,15 @@ class Generator extends YiiGiiModelGenerator
         return StringHelper::basename($this->getModelClass());
     }
 
+    public function getModelAlias()
+    {
+        $modelAlias = $this->getModelName();
+        if ($modelAlias == $this->getNewModelName()) {
+            $modelAlias .= 'Base';
+        }
+        return $modelAlias;
+    }
+
     public function getNewModelClass()
     {
         return $this->newModelClass;
