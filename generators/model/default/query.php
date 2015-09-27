@@ -27,17 +27,17 @@ class <?php echo $generator->getNewQueryName(); ?> extends <?php echo $generator
      * @return self
      */
 <?php if (count($primaryKey) == 1) { ?>
-    public function pk($<?php echo Inflector::camelize($primaryKey[0]); ?>)
+    public function pk($<?php echo Inflector::variablize($primaryKey[0]); ?>)
     {
-        return $this->andWhere([$this->getAlias() . '.`<?php echo $primaryKey[0]; ?>`' => $<?php echo Inflector::camelize($primaryKey[0]); ?>]);
+        return $this->andWhere([$this->getAlias() . '.`<?php echo $primaryKey[0]; ?>`' => $<?php echo Inflector::variablize($primaryKey[0]); ?>]);
     }
 <?php } else { ?>
-    public function pk($<?php echo implode(', $', array_map(['yii\helpers\Inflector', 'camelize'], $primaryKey)); ?>)
+    public function pk($<?php echo implode(', $', array_map(['yii\helpers\Inflector', 'variablize'], $primaryKey)); ?>)
     {
         $alias = $this->getAlias();
         return $this->andWhere([
-<?php foreach ($primaryKey as $column) { ?>
-            $alias . '.`<?php echo $column; ?>`' => $<?php echo Inflector::camelize($column); ?>
+<?php foreach ($primaryKey as $i => $column) { ?>
+            $alias . '.`<?php echo $column; ?>`' => $<?php echo Inflector::variablize($column); ?><?php if ($i < count($primaryKey) - 1) { echo ','; } ?>
 
 <?php } ?>
         ]);
