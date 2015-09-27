@@ -31,8 +31,14 @@ class Generator extends YiiGiiModelGenerator
 
     public function beforeValidate()
     {
-        if (is_null($this->modelClass)) {
-            $this->modelClass = Inflector::classify($this->tableName) . 'Base';
+        if (is_null($this->modelClass) || is_null($this->queryClass)) {
+            $className = Inflector::classify($this->tableName);
+            if (is_null($this->modelClass)) {
+                $this->modelClass = $className . 'Base';
+            }
+            if (is_null($this->queryClass)) {
+                $this->queryClass = $className . 'QueryBase';
+            }
         }
         if (!is_array($this->use)) {
             $this->use = array_filter(array_map('trim', explode(',', $this->use)), 'strlen');
