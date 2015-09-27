@@ -11,7 +11,7 @@ use yii\console\Controller,
 class GenerateController extends Controller
 {
 
-    protected function getTables()
+    protected function getTableNames()
     {
         $db = Yii::$app->getDb();
         if (!$db->getIsActive()) {
@@ -32,7 +32,9 @@ class GenerateController extends Controller
 
     public function actionShowTables()
     {
-        $this->stdout(print_r($this->getTables(), true));
+        foreach ($this->getTableNames() as $tableName) {
+            $this->stdout($tableName . "\n");
+        }
     }
 
     public function actionIndex()
