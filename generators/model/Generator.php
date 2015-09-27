@@ -73,7 +73,7 @@ class Generator extends YiiGiiCrudGenerator
 
     public function getNewModelUseDirective()
     {
-        return 'use Yii;';
+        return 'use Yii;' . "\n\n";
     }
 
     public function getNewModelName()

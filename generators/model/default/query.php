@@ -10,7 +10,6 @@ namespace <?php echo $generator->getNewQueryNamespace(); ?>;
 
 <?php echo $generator->getNewQueryUseDirective(); ?>
 
-
 class <?php echo $generator->getNewQueryName(); ?> extends <?php echo $generator->getQueryName(); ?>
 
 {
