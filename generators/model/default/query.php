@@ -2,6 +2,8 @@
 /* @var $this yii\web\View */
 /* @var $generator yii\gii\plus\generators\model\Generator */
 
+$primaryKey = $generator->getPrimaryKey();
+
 echo '<?php';
 ?>
 
@@ -22,8 +24,8 @@ class <?php echo $generator->getNewQueryName(); ?> extends <?php echo $generator
     /**
      * @return self
      */
-    public function id($id)
+    public function <?php echo $primaryKey[0]; ?>($<?php echo $primaryKey[0]; ?>)
     {
-        return $this->andWhere([$this->getAlias() . '.`id`' => $id]);
+        return $this->andWhere([$this->getAlias() . '.`<?php echo $primaryKey[0]; ?>`' => $<?php echo $primaryKey[0]; ?>]);
     }
 }

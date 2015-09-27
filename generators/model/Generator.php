@@ -186,4 +186,11 @@ class Generator extends YiiGiiCrudGenerator
             return '';
         }
     }
+
+    public function getPrimaryKey()
+    {
+        /* @var $modelClass \yii\db\BaseActiveRecord */
+        $modelClass = $this->getModelClass();
+        return $modelClass::primaryKey();
+    }
 }
