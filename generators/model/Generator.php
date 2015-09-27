@@ -149,21 +149,35 @@ class Generator extends YiiGiiCrudGenerator
     public function getModelUseDirective()
     {
         $use = ['Yii'];
-        if ($this->getNewModelNamespace() != $this->getModelNamespace()) {
-            $use[] = $this->getModelClass();
+        if ($this->getModelNamespace() != $this->getNewModelNamespace()) {
+            $modelAlias = $this->getModelAlias();
+            if ($modelAlias == $this->getModelName()) {
+                $use[] = $this->getModelClass();
+            } else {
+                $use[] = $this->getModelClass() . ' as ' . $modelAlias;
+            }
         }
-        if ($this->getNewModelNamespace() != $this->getNewQueryNamespace()) {
+        if ($this->getNewQueryNamespace() != $this->getNewModelNamespace()) {
             $use[] = $this->getNewQueryClass();
         }
-        $useDirective = 'use ' . implode(',' . "\n" . '    ', $use) . ';';
-        return $useDirective . "\n\n";
+        if (count($use)) {
+            $useDirective = 'use ' . implode(',' . "\n" . '    ', $use) . ';';
+            return $useDirective . "\n\n";
+        } else {
+            return '';
+        }
     }
 
     public function getQueryUseDirective()
     {
         $use = [];
-        if ($this->getNewQueryNamespace() != $this->getQueryNamespace()) {
-            $use[] = $this->getQueryClass();
+        if ($this->getQueryNamespace() != $this->getNewQueryNamespace()) {
+            $queryAlias = $this->getQueryAlias();
+            if ($queryAlias == $this->getQueryName()) {
+                $use[] = $this->getQueryClass();
+            } else {
+                $use[] = $this->getQueryClass() . ' as ' . $queryAlias;
+            }
         }
         if (count($use)) {
             $useDirective = 'use ' . implode(',' . "\n" . '    ', $use) . ';';

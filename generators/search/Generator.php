@@ -99,8 +99,22 @@ class Generator extends YiiGiiModelGenerator
         return StringHelper::basename($this->getNewModelClass());
     }
 
-    public function getUseDirective()
+    public function getModelUseDirective()
     {
-        return '';
+        $use = [];
+        if ($this->getModelNamespace() != $this->getNewModelNamespace()) {
+            $modelAlias = $this->getModelAlias();
+            if ($modelAlias == $this->getModelName()) {
+                $use[] = $this->getModelClass();
+            } else {
+                $use[] = $this->getModelClass() . ' as ' . $modelAlias;
+            }
+        }
+        if (count($use)) {
+            $useDirective = 'use ' . implode(',' . "\n" . '    ', $use) . ';';
+            return $useDirective . "\n\n";
+        } else {
+            return '';
+        }
     }
 }
