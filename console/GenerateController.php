@@ -55,6 +55,15 @@ class GenerateController extends Controller
                 '--overwrite=1'
             ];
             $this->stdout(implode("\n", $s) . "\n");
+            $s = [
+                './yii gii/model \\',
+                '--modelClass="app\\models\\base\\GoodBase" \\',
+                '--newModelClass="app\\models\\Good" \\',
+                '--newQueryClass="app\\models\\queries\\GoodQuery" \\',
+                '--interactive=0 \\',
+                '--overwrite=0'
+            ];
+            $this->stdout(implode("\n", $s) . "\n");
         }
     }
 
