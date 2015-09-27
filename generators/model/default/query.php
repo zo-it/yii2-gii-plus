@@ -24,8 +24,20 @@ class <?php echo $generator->getNewQueryName(); ?> extends <?php echo $generator
     /**
      * @return self
      */
+<?php if (count($primaryKey) == 1) { ?>
     public function <?php echo $primaryKey[0]; ?>($<?php echo $primaryKey[0]; ?>)
     {
         return $this->andWhere([$this->getAlias() . '.`<?php echo $primaryKey[0]; ?>`' => $<?php echo $primaryKey[0]; ?>]);
     }
+<?php } else { ?>
+    public function <?php echo implode($primaryKey); ?>($<?php echo implode(', $', $primaryKey); ?>)
+    {
+        $alias = $this->getAlias();
+        return $this->andWhere([
+<?php foreach ($primaryKey as $column) { ?>
+            $alias . '.`<?php echo $column; ?>`' => $<?php echo $column; ?>
+<?php } ?>
+        ]);
+    }
+<?php } ?>
 }
