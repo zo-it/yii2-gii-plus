@@ -160,6 +160,9 @@ class Generator extends YiiGiiCrudGenerator
         if ($this->getNewQueryNamespace() != $this->getNewModelNamespace()) {
             $use[] = $this->getNewQueryClass();
         }
+        usort($use, function ($use1, $use2) {
+            return strcasecmp(preg_replace('~^.+[\\\\ ]([^\\\\ ]+)$~', '$1', $use1), preg_replace('~^.+[\\\\ ]([^\\\\ ]+)$~', '$1', $use2));
+        });
         if (count($use)) {
             $useDirective = 'use ' . implode(',' . "\n" . '    ', $use) . ';';
             return $useDirective . "\n\n";
@@ -179,6 +182,9 @@ class Generator extends YiiGiiCrudGenerator
                 $use[] = $this->getQueryClass() . ' as ' . $queryAlias;
             }
         }
+        usort($use, function ($use1, $use2) {
+            return strcasecmp(preg_replace('~^.+[\\\\ ]([^\\\\ ]+)$~', '$1', $use1), preg_replace('~^.+[\\\\ ]([^\\\\ ]+)$~', '$1', $use2));
+        });
         if (count($use)) {
             $useDirective = 'use ' . implode(',' . "\n" . '    ', $use) . ';';
             return $useDirective . "\n\n";

@@ -110,6 +110,9 @@ class Generator extends YiiGiiCrudGenerator
                 $use[] = $this->getModelClass() . ' as ' . $modelAlias;
             }
         }
+        usort($use, function ($use1, $use2) {
+            return strcasecmp(preg_replace('~^.+[\\\\ ]([^\\\\ ]+)$~', '$1', $use1), preg_replace('~^.+[\\\\ ]([^\\\\ ]+)$~', '$1', $use2));
+        });
         if (count($use)) {
             $useDirective = 'use ' . implode(',' . "\n" . '    ', $use) . ';';
             return $useDirective . "\n\n";
