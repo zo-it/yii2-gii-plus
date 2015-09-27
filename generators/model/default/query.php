@@ -8,7 +8,7 @@ echo '<?php';
 
 namespace <?php echo $generator->getNewQueryNamespace(); ?>;
 
-<?php echo $generator->getNewQueryUseDirective(); ?>
+<?php echo $generator->getQueryUseDirective(); ?>
 
 class <?php echo $generator->getNewQueryName(); ?> extends <?php echo $generator->getQueryName(); ?>
 

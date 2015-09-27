@@ -60,23 +60,38 @@ class Generator extends YiiGiiModelGenerator
         return [new CodeFile($newModelPath, $this->render('search.php'))];
     }
 
-    public function getNewModelNamespace()
+    public function getModelClass()
     {
-        return StringHelper::dirname(ltrim($this->newModelClass, '\\'));
+        return $this->modelClass;
     }
 
-    public function getNewModelUseDirective()
+    public function getModelNamespace()
     {
-        return '';
-    }
-
-    public function getNewModelName()
-    {
-        return StringHelper::basename($this->newModelClass);
+        return StringHelper::dirname(ltrim($this->getModelClass(), '\\'));
     }
 
     public function getModelName()
     {
-        return StringHelper::basename($this->modelClass);
+        return StringHelper::basename($this->getModelClass());
+    }
+
+    public function getNewModelClass()
+    {
+        return $this->newModelClass;
+    }
+
+    public function getNewModelNamespace()
+    {
+        return StringHelper::dirname(ltrim($this->getNewModelClass(), '\\'));
+    }
+
+    public function getNewModelName()
+    {
+        return StringHelper::basename($this->getNewModelClass());
+    }
+
+    public function getUseDirective()
+    {
+        return '';
     }
 }

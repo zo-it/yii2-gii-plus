@@ -66,45 +66,78 @@ class Generator extends YiiGiiCrudGenerator
         ];
     }
 
-    public function getNewModelNamespace()
+    public function getModelClass()
     {
-        return StringHelper::dirname(ltrim($this->newModelClass, '\\'));
+        return $this->modelClass;
     }
 
-    public function getNewModelUseDirective()
+    public function getModelNamespace()
     {
-        return 'use Yii;' . "\n\n";
-    }
-
-    public function getNewModelName()
-    {
-        return StringHelper::basename($this->newModelClass);
+        return StringHelper::dirname(ltrim($this->getModelClass(), '\\'));
     }
 
     public function getModelName()
     {
-        return StringHelper::basename($this->modelClass);
+        return StringHelper::basename($this->getModelClass());
     }
 
-    public function getNewQueryNamespace()
+    public function getQueryClass()
     {
-        return StringHelper::dirname(ltrim($this->newQueryClass, '\\'));
+        /* @var $modelClass \yii\db\BaseActiveRecord */
+        $modelClass = $this->getModelClass();
+        return get_class($modelClass::find());
     }
 
-    public function getNewQueryUseDirective()
+    public function getQueryNamespace()
     {
-        return '';
-    }
-
-    public function getNewQueryName()
-    {
-        return StringHelper::basename($this->newQueryClass);
+        return StringHelper::dirname(ltrim($this->getQueryClass(), '\\'));
     }
 
     public function getQueryName()
     {
-        /* @var $modelClass \yii\db\BaseActiveRecord */
-        $modelClass = $this->modelClass;
-        return StringHelper::basename(get_class($modelClass::find()));
+        return StringHelper::basename($this->getQueryClass());
+    }
+
+    public function getNewModelClass()
+    {
+        return $this->newModelClass;
+    }
+
+    public function getNewModelNamespace()
+    {
+        return StringHelper::dirname(ltrim($this->getNewModelClass(), '\\'));
+    }
+
+    public function getNewModelName()
+    {
+        return StringHelper::basename($this->getNewModelClass());
+    }
+
+    public function getNewQueryClass()
+    {
+        return $this->newQueryClass;
+    }
+
+    public function getNewQueryNamespace()
+    {
+        return StringHelper::dirname(ltrim($this->getNewQueryClass(), '\\'));
+    }
+
+    public function getNewQueryName()
+    {
+        return StringHelper::basename($this->getNewQueryClass());
+    }
+
+    public function getModelUseDirective()
+    {
+        $use = ['Yii'];
+        $use[] = $this->getNewQueryClass();
+        $useDirective = 'use ' . implode(',' . "\n" . '    ', $use) . ';';
+        return $useDirective . "\n\n";
+    }
+
+    public function getQueryUseDirective()
+    {
+        return '';
     }
 }
