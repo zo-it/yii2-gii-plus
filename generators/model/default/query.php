@@ -1,4 +1,5 @@
 <?php
+
 use yii\helpers\Inflector;
 
 /* @var $this yii\web\View */
