@@ -2,11 +2,20 @@
 
 namespace yii\gii\plus;
 
-use yii\gii\Module as YiiGiiModule;
+use yii\console\Application as ConsoleApplication,
+    yii\gii\Module as YiiGiiModule;
 
 
 class Module extends YiiGiiModule
 {
+
+    public function bootstrap($app)
+    {
+        if ($app instanceof ConsoleApplication) {
+            $app->controllerMap[$this->id . '-plus'] = ['class' => 'yii\gii\plus\console\GenerateController'];
+        }
+        parent::bootstrap($app);
+    }
 
     protected function coreGenerators()
     {
