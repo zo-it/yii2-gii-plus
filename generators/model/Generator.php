@@ -59,17 +59,16 @@ class Generator extends YiiGiiCrudGenerator
 
     public function beforeValidate()
     {
-        if (is_null($this->newModelClass)) {
+        if (is_null($this->newModelClass) || is_null($this->newQueryClass)) {
             /* @var $modelClass \yii\db\ActiveRecord */
             $modelClass = $this->getModelClass();
             $className = Inflector::classify($modelClass::tableName());
-            $this->newModelClass = 'app\models\\' . $className;
-        }
-        if (is_null($this->newQueryClass)) {
-            /* @var $modelClass \yii\db\ActiveRecord */
-            $modelClass = $this->getModelClass();
-            $className = Inflector::classify($modelClass::tableName());
-            $this->newQueryClass = 'app\models\query\\' . $className . 'Query';
+            if (is_null($this->newModelClass)) {
+                $this->newModelClass = 'app\models\\' . $className;
+            }
+            if (is_null($this->newQueryClass)) {
+                $this->newQueryClass = 'app\models\query\\' . $className . 'Query';
+            }
         }
         return parent::beforeValidate();
     }
