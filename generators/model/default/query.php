@@ -8,7 +8,7 @@ echo '<?php';
 
 namespace <?php echo $generator->getNewQueryNamespace(); ?>;
 
-use Yii;
+<?php echo $generator->getNewQueryUseDirective(); ?>
 
 
 class <?php echo $generator->getNewQueryName(); ?> extends <?php echo $generator->getQueryName(); ?>
@@ -18,5 +18,13 @@ class <?php echo $generator->getNewQueryName(); ?> extends <?php echo $generator
     public function init()
     {
         parent::init();
+    }
+
+    /**
+     * @return self
+     */
+    public function id($id)
+    {
+        return $this->andWhere([$this->getAlias() . '.`id`' => $id]);
     }
 }

@@ -71,6 +71,11 @@ class Generator extends YiiGiiCrudGenerator
         return StringHelper::dirname(ltrim($this->newModelClass, '\\'));
     }
 
+    public function getNewModelUseDirective()
+    {
+        return 'use Yii;';
+    }
+
     public function getNewModelName()
     {
         return StringHelper::basename($this->newModelClass);
@@ -84,6 +89,11 @@ class Generator extends YiiGiiCrudGenerator
     public function getNewQueryNamespace()
     {
         return StringHelper::dirname(ltrim($this->newQueryClass, '\\'));
+    }
+
+    public function getNewQueryUseDirective()
+    {
+        return '';
     }
 
     public function getNewQueryName()

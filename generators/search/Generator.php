@@ -65,6 +65,11 @@ class Generator extends YiiGiiModelGenerator
         return StringHelper::dirname(ltrim($this->newModelClass, '\\'));
     }
 
+    public function getNewModelUseDirective()
+    {
+        return '';
+    }
+
     public function getNewModelName()
     {
         return StringHelper::basename($this->newModelClass);
