@@ -22,7 +22,7 @@ class GenerateController extends Controller
                 $sql = 'SHOW TABLES;';
                 break;
             case 'pgsql':
-                $sql = 'SELECT table_name FROM information_schema.tables WHERE table_schema = "public";';
+                $sql = 'SELECT table_name FROM information_schema.tables WHERE table_schema = \'public\';';
                 break;
             default:
                 throw new NotSupportedException;
