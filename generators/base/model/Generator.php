@@ -2,13 +2,20 @@
 
 namespace yii\gii\plus\generators\base\model;
 
-use ReflectionClass,
+use yii\helpers\Inflector,
+    ReflectionClass,
     yii\gii\generators\model\Generator as YiiGiiModelGenerator;
 
 
 class Generator extends YiiGiiModelGenerator
 {
 
+    public $ns = 'app\models\base';
+    public $baseClass = 'yii\boost\db\ActiveRecord';
+    public $generateLabelsFromComments = true;
+    public $generateQuery = true;
+    public $queryNs = 'app\models\query\base';
+    public $queryBaseClass = 'yii\boost\db\ActiveQuery';
     public $use = 'Yii';
 
     public function getName()
@@ -22,10 +29,15 @@ class Generator extends YiiGiiModelGenerator
         return dirname($class->getFileName()) . '/default';
     }
 
-    public function generate()
+    public function beforeValidate()
     {
-        $this->use = array_filter(array_map('trim', explode(',', $this->use)), 'strlen');
-        return parent::generate();
+        if (is_null($this->modelClass)) {
+            $this->modelClass = Inflector::classify($this->tableName) . 'Base';
+        }
+        if (!is_array($this->use)) {
+            $this->use = array_filter(array_map('trim', explode(',', $this->use)), 'strlen');
+        }
+        return parent::beforeValidate();
     }
 
     public function render($template, $params = [])
