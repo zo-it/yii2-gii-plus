@@ -41,7 +41,7 @@ class <?php echo $generator->getNewQueryName(); ?> extends <?php echo $generator
         $alias = $this->getAlias();
         return $this->andWhere([
 <?php foreach ($primaryKey as $i => $column) { ?>
-            $alias . '.`<?php echo $column; ?>`' => $<?php echo Inflector::variablize($column); ?><?php if ($i < count($primaryKey) - 1) { echo ','; } ?>
+            $alias . '.`<?php echo $column; ?>`' => $<?php echo Inflector::variablize($column); if ($i < count($primaryKey) - 1) { echo ','; } ?>
 
 <?php } ?>
         ]);
