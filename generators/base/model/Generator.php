@@ -54,9 +54,12 @@ class Generator extends YiiGiiModelGenerator
             foreach ($relations[$this->tableName] as $relationName => $relation) {
                 list($code, $className, $hasMany) = $relation;
                 if ($className == $this->modelClass) {
-                    $code = str_replace('(' . $className . '::className()', '(\'app\models\\' . Inflector::id2camel($this->tableName, '_') . '\'', $code);
+                    $className2 = Inflector::id2camel($this->tableName, '_');
+                    $code = str_replace('(' . $className . '::className()', '(\'app\models\\' . $className2 . '\'', $code);
                     if ($hasMany) {
                         $relationName = Inflector::id2camel(Inflector::pluralize($this->tableName), '_');
+                    } elseif ($relationName == $className) {
+                        $relationName = $className2;
                     }
                 } else {
                     $this->use[] = 'app\models\\' . $className;
