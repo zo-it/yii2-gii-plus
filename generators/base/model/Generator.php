@@ -48,12 +48,12 @@ class Generator extends YiiGiiModelGenerator
 
     protected function generateRelations()
     {
-        $relations = parent::generateRelations();
+        $allRelations = parent::generateRelations();
         if (($this->ns != 'app\models') && array_key_exists($this->tableName, $relations)) {
-            $fixRelations = [];
-            foreach ($relations[$this->tableName] as $relationName => $relation) {
-                list($code, $className, $hasMany) = $relation;
-                if ($className == $this->modelClass) {
+            $relations = [];
+            foreach ($allRelations[$this->tableName] as $relationName => $relation) {
+                list ($code, $className, $hasMany) = $relation;
+                if ($className == $this->modelClass) { // itself
                     $className2 = Inflector::classify($this->tableName);
                     $code = str_replace('(' . $className . '::className()', '(\'app\models\\' . $className2 . '\'', $code);
                     if ($hasMany) {
@@ -64,11 +64,11 @@ class Generator extends YiiGiiModelGenerator
                 } else {
                     $this->use[] = 'app\models\\' . $className;
                 }
-                $fixRelations[$relationName] = [$code, $className, $hasMany];
+                $relations[$relationName] = [$code, $className, $hasMany];
             }
-            $relations[$this->tableName] = $fixRelations;
+            $allRelations[$this->tableName] = $relations;
         }
-        return $relations;
+        return $allRelations;
     }
 
     public function render($template, $params = [])
