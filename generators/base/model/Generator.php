@@ -46,9 +46,24 @@ class Generator extends YiiGiiModelGenerator
         return parent::beforeValidate();
     }
 
+    protected function generateRelations()
+    {
+        $relations = parent::generateRelations();
+        if (($this->ns != 'app\models') && array_key_exists($this->tableName, $relations)) {
+            foreach ($relations[$this->tableName] as $relation) {
+                $this->use[] = 'app\models\\' . $relation[1];
+            }
+        }
+        return $relations;
+    }
+
     public function render($template, $params = [])
     {
-        $useDirective = 'use ' . implode(',' . "\n" . '    ', $this->use) . ';';
+        $use = array_unique($this->use);
+        usort($use, function ($use1, $use2) {
+            return strcasecmp(preg_replace('~^.+[\\\\ ]([^\\\\ ]+)$~', '$1', $use1), preg_replace('~^.+[\\\\ ]([^\\\\ ]+)$~', '$1', $use2));
+        });
+        $useDirective = 'use ' . implode(',' . "\n" . '    ', $use) . ';';
         return str_replace('use Yii;', $useDirective, parent::render($template, $params));
     }
 }
