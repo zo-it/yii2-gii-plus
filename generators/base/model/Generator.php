@@ -49,7 +49,7 @@ class Generator extends YiiGiiModelGenerator
     protected function generateRelations()
     {
         $allRelations = parent::generateRelations();
-        if (($this->ns != 'app\models') && array_key_exists($this->tableName, $relations)) {
+        if (($this->ns != 'app\models') && array_key_exists($this->tableName, $allRelations)) {
             $relations = [];
             foreach ($allRelations[$this->tableName] as $relationName => $relation) {
                 list ($code, $className, $hasMany) = $relation;
