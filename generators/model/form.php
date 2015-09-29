@@ -8,7 +8,14 @@ use yii\jui\AutoComplete,
 /* @var $form yii\widgets\ActiveForm */
 
 echo $form->field($generator, 'modelClass')->widget(AutoComplete::classname(), [
-    'clientOptions' => ['source' => FormHelper::getBaseModelClasses()]
+    'options' => [
+        'class' => 'form-control',
+        'onfocus' => 'jQuery(this).autocomplete(\'search\');'
+    ],
+    'clientOptions' => [
+        'source' => FormHelper::getBaseModelClasses(),
+        'minLength' => 0
+    ]
 ]);
 echo $form->field($generator, 'newModelClass');
 echo $form->field($generator, 'newQueryClass');
