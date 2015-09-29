@@ -39,4 +39,11 @@ class FormHelper
     {
         return [];
     }
+
+    public static function sortUse(array &$use)
+    {
+        usort($use, function ($use1, $use2) {
+            return strcasecmp(preg_replace('~^.+[\\\\ ]([^\\\\ ]+)$~', '$1', $use1), preg_replace('~^.+[\\\\ ]([^\\\\ ]+)$~', '$1', $use2));
+        });
+    }
 }
