@@ -21,7 +21,8 @@ class Generator extends YiiGiiModelGenerator
     public $queryNs = 'app\models\query\base';
     public $queryClass = null;
     public $queryBaseClass = 'yii\boost\db\ActiveQuery';
-    public $use = 'Yii';
+
+    protected $use = 'Yii';
 
     public function getName()
     {
