@@ -1,6 +1,6 @@
 <?php
 
-use yii\jui\AutoComplete,
+use yii\gii\plus\widgets\AutoComplete,
     yii\gii\plus\helpers\FormHelper;
 
 /* @var $this yii\web\View */
@@ -8,10 +8,6 @@ use yii\jui\AutoComplete,
 /* @var $form yii\widgets\ActiveForm */
 
 echo $form->field($generator, 'modelClass')->widget(AutoComplete::classname(), [
-    'options' => [
-        'class' => 'form-control',
-        'onfocus' => 'jQuery(this).autocomplete(\'search\');'
-    ],
     'clientOptions' => [
         'source' => FormHelper::getBaseSearchModelClasses(),
         'minLength' => 0

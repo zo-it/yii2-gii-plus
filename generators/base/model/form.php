@@ -1,6 +1,6 @@
 <?php
 
-use yii\jui\AutoComplete,
+use yii\gii\plus\widgets\AutoComplete,
     yii\gii\plus\helpers\FormHelper;
 
 /* @var $this yii\web\View */
@@ -19,14 +19,30 @@ echo $form->field($generator, 'tableName')->widget(AutoComplete::classname(), [
 ]);
 echo $form->field($generator, 'modelClass');
 echo $form->field($generator, 'ns');
-echo $form->field($generator, 'baseClass');
+echo $form->field($generator, 'baseClass')->widget(AutoComplete::classname(), [
+    'clientOptions' => [
+        'source' => [
+            'yii\boost\db\ActiveRecord',
+            'yii\db\ActiveRecord'
+        ],
+        'minLength' => 0
+    ]
+]);
 echo $form->field($generator, 'db');
 echo $form->field($generator, 'useTablePrefix')->checkbox();
 echo $form->field($generator, 'generateRelations')->checkbox();
 echo $form->field($generator, 'generateLabelsFromComments')->checkbox();
 echo $form->field($generator, 'generateQuery')->checkbox();
 echo $form->field($generator, 'queryNs');
-echo $form->field($generator, 'queryClass');
+echo $form->field($generator, 'queryClass')->widget(AutoComplete::classname(), [
+    'clientOptions' => [
+        'source' => [
+            'yii\boost\db\ActiveQuery',
+            'yii\db\ActiveQuery'
+        ],
+        'minLength' => 0
+    ]
+]);
 echo $form->field($generator, 'queryBaseClass');
 echo $form->field($generator, 'use');
 echo $form->field($generator, 'enableI18N')->checkbox();
