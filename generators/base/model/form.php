@@ -19,6 +19,5 @@ echo $form->field($generator, 'generateQuery')->checkbox();
 echo $form->field($generator, 'queryNs')->widget(AutoComplete::classname(), ['source' => ['app\models\query\base', 'app\models\query', 'app\models']]);
 echo $form->field($generator, 'queryClass')->widget(AutoComplete::classname(), ['source' => ['yii\boost\db\ActiveQuery', 'yii\db\ActiveQuery']]);
 echo $form->field($generator, 'queryBaseClass');
-echo $form->field($generator, 'use');
 echo $form->field($generator, 'enableI18N')->checkbox();
 echo $form->field($generator, 'messageCategory');
