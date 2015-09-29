@@ -3,7 +3,7 @@
 namespace yii\gii\plus\generators\model;
 
 use yii\gii\CodeFile,
-    yii\gii\plus\helpers\FormHelper,
+    yii\gii\plus\helpers\Helper,
     yii\helpers\Inflector,
     yii\helpers\StringHelper,
     Yii,
@@ -24,7 +24,7 @@ class Generator extends YiiGiiCrudGenerator
 
     public function getDescription()
     {
-        return '';
+        return 'This generator generates an ActiveRecord class for the specified base ActiveRecord class.';
     }
 
     public function attributes()
@@ -179,10 +179,8 @@ class Generator extends YiiGiiCrudGenerator
         if ($this->getNewQueryNamespace() != $this->getNewModelNamespace()) {
             $use[] = $this->getNewQueryClass();
         }
-        FormHelper::sortUse($use);
         if (count($use)) {
-            $useDirective = 'use ' . implode(',' . "\n" . '    ', $use) . ';';
-            return $useDirective . "\n\n";
+            return Helper::getUseDirective($use) . "\n\n";
         } else {
             return '';
         }
@@ -199,10 +197,8 @@ class Generator extends YiiGiiCrudGenerator
                 $use[] = $this->getQueryClass() . ' as ' . $queryAlias;
             }
         }
-        FormHelper::sortUse($use);
         if (count($use)) {
-            $useDirective = 'use ' . implode(',' . "\n" . '    ', $use) . ';';
-            return $useDirective . "\n\n";
+            return Helper::getUseDirective($use) . "\n\n";
         } else {
             return '';
         }

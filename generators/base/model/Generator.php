@@ -2,7 +2,7 @@
 
 namespace yii\gii\plus\generators\base\model;
 
-use yii\gii\plus\helpers\FormHelper,
+use yii\gii\plus\helpers\Helper,
     yii\helpers\Inflector,
     ReflectionClass,
     yii\gii\generators\model\Generator as YiiGiiModelGenerator;
@@ -26,6 +26,11 @@ class Generator extends YiiGiiModelGenerator
     public function getName()
     {
         return 'Base Model Generator';
+    }
+
+    public function getDescription()
+    {
+        return 'This generator generates a base ActiveRecord class for the specified database table.';
     }
 
     public function defaultTemplate()
@@ -78,9 +83,6 @@ class Generator extends YiiGiiModelGenerator
 
     public function render($template, $params = [])
     {
-        $use = array_unique($this->use);
-        FormHelper::sortUse($use);
-        $useDirective = 'use ' . implode(',' . "\n" . '    ', $use) . ';';
-        return str_replace('use Yii;', $useDirective, parent::render($template, $params));
+        return str_replace('use Yii;', Helper::getUseDirective($this->use), parent::render($template, $params));
     }
 }

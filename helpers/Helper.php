@@ -6,7 +6,7 @@ use PDO,
     Yii;
 
 
-class FormHelper
+class Helper
 {
 
     public static function getTableNames()
@@ -45,5 +45,11 @@ class FormHelper
         usort($use, function ($use1, $use2) {
             return strcasecmp(preg_replace('~^.+[\\\\ ]([^\\\\ ]+)$~', '$1', $use1), preg_replace('~^.+[\\\\ ]([^\\\\ ]+)$~', '$1', $use2));
         });
+    }
+
+    public static function getUseDirective(array $use)
+    {
+        static::sortUse($use);
+        return 'use ' . implode(',' . "\n" . '    ', array_unique($use)) . ';';
     }
 }

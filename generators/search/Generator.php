@@ -3,7 +3,7 @@
 namespace yii\gii\plus\generators\search;
 
 use yii\gii\CodeFile,
-    yii\gii\plus\helpers\FormHelper,
+    yii\gii\plus\helpers\Helper,
     yii\helpers\Inflector,
     yii\helpers\StringHelper,
     Yii,
@@ -113,7 +113,7 @@ class Generator extends YiiGiiCrudGenerator
         return StringHelper::basename($this->getNewModelClass());
     }
 
-    public function getModelUseDirective()
+    public function getUseDirective()
     {
         $use = ['yii\base\Model'];
         if ($this->getModelNamespace() != $this->getNewModelNamespace()) {
@@ -124,10 +124,8 @@ class Generator extends YiiGiiCrudGenerator
                 $use[] = $this->getModelClass() . ' as ' . $modelAlias;
             }
         }
-        FormHelper::sortUse($use);
         if (count($use)) {
-            $useDirective = 'use ' . implode(',' . "\n" . '    ', $use) . ';';
-            return $useDirective . "\n\n";
+            return Helper::getUseDirective($use) . "\n\n";
         } else {
             return '';
         }
