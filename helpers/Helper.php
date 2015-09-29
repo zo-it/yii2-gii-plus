@@ -6,7 +6,7 @@ use PDO,
     Yii;
 
 
-class FormHelper
+class Helper
 {
 
     public static function getTableNames()

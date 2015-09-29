@@ -3,7 +3,7 @@
 namespace yii\gii\plus\generators\model;
 
 use yii\gii\CodeFile,
-    yii\gii\plus\helpers\FormHelper,
+    yii\gii\plus\helpers\Helper,
     yii\helpers\Inflector,
     yii\helpers\StringHelper,
     Yii,
@@ -179,7 +179,7 @@ class Generator extends YiiGiiCrudGenerator
         if ($this->getNewQueryNamespace() != $this->getNewModelNamespace()) {
             $use[] = $this->getNewQueryClass();
         }
-        FormHelper::sortUse($use);
+        Helper::sortUse($use);
         if (count($use)) {
             $useDirective = 'use ' . implode(',' . "\n" . '    ', $use) . ';';
             return $useDirective . "\n\n";
@@ -199,7 +199,7 @@ class Generator extends YiiGiiCrudGenerator
                 $use[] = $this->getQueryClass() . ' as ' . $queryAlias;
             }
         }
-        FormHelper::sortUse($use);
+        Helper::sortUse($use);
         if (count($use)) {
             $useDirective = 'use ' . implode(',' . "\n" . '    ', $use) . ';';
             return $useDirective . "\n\n";

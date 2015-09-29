@@ -2,7 +2,7 @@
 
 namespace yii\gii\plus\generators\base\model;
 
-use yii\gii\plus\helpers\FormHelper,
+use yii\gii\plus\helpers\Helper,
     yii\helpers\Inflector,
     ReflectionClass,
     yii\gii\generators\model\Generator as YiiGiiModelGenerator;
@@ -84,7 +84,7 @@ class Generator extends YiiGiiModelGenerator
     public function render($template, $params = [])
     {
         $use = array_unique($this->use);
-        FormHelper::sortUse($use);
+        Helper::sortUse($use);
         $useDirective = 'use ' . implode(',' . "\n" . '    ', $use) . ';';
         return str_replace('use Yii;', $useDirective, parent::render($template, $params));
     }

@@ -3,7 +3,7 @@
 namespace yii\gii\plus\console;
 
 use yii\console\Controller,
-    yii\gii\plus\helpers\FormHelper,
+    yii\gii\plus\helpers\Helper,
     yii\helpers\Inflector,
     yii\base\InvalidParamException;
 
@@ -49,21 +49,21 @@ class GenerateController extends Controller
 
     public function actionShowTables()
     {
-        foreach (FormHelper::getTableNames() as $tableName) {
+        foreach (Helper::getTableNames() as $tableName) {
             $this->stdout($tableName . "\n");
         }
     }
 
     public function actionShowCommands()
     {
-        foreach (FormHelper::getTableNames() as $tableName) {
+        foreach (Helper::getTableNames() as $tableName) {
             $this->stdout($this->getCommand($tableName) . "\n\n");
         }
     }
 
     public function actionShowCommand($tableName)
     {
-        if (!in_array($tableName, FormHelper::getTableNames())) {
+        if (!in_array($tableName, Helper::getTableNames())) {
             throw new InvalidParamException;
         }
         $this->stdout($this->getCommand($tableName) . "\n");
@@ -71,14 +71,14 @@ class GenerateController extends Controller
 
     public function actionRunCommands()
     {
-        foreach (FormHelper::getTableNames() as $tableName) {
+        foreach (Helper::getTableNames() as $tableName) {
             passthru($this->getCommand($tableName));
         }
     }
 
     public function actionRunCommand($tableName)
     {
-        if (!in_array($tableName, FormHelper::getTableNames())) {
+        if (!in_array($tableName, Helper::getTableNames())) {
             throw new InvalidParamException;
         }
         passthru($this->getCommand($tableName));
