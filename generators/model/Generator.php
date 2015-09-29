@@ -179,10 +179,8 @@ class Generator extends YiiGiiCrudGenerator
         if ($this->getNewQueryNamespace() != $this->getNewModelNamespace()) {
             $use[] = $this->getNewQueryClass();
         }
-        Helper::sortUse($use);
         if (count($use)) {
-            $useDirective = 'use ' . implode(',' . "\n" . '    ', $use) . ';';
-            return $useDirective . "\n\n";
+            return Helper::getUseDirective($use) . "\n\n";
         } else {
             return '';
         }
@@ -199,10 +197,8 @@ class Generator extends YiiGiiCrudGenerator
                 $use[] = $this->getQueryClass() . ' as ' . $queryAlias;
             }
         }
-        Helper::sortUse($use);
         if (count($use)) {
-            $useDirective = 'use ' . implode(',' . "\n" . '    ', $use) . ';';
-            return $useDirective . "\n\n";
+            return Helper::getUseDirective($use) . "\n\n";
         } else {
             return '';
         }

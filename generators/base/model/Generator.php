@@ -83,9 +83,6 @@ class Generator extends YiiGiiModelGenerator
 
     public function render($template, $params = [])
     {
-        $use = array_unique($this->use);
-        Helper::sortUse($use);
-        $useDirective = 'use ' . implode(',' . "\n" . '    ', $use) . ';';
-        return str_replace('use Yii;', $useDirective, parent::render($template, $params));
+        return str_replace('use Yii;', Helper::getUseDirective($this->use), parent::render($template, $params));
     }
 }

@@ -9,7 +9,7 @@ echo '<?php';
 
 namespace <?php echo $generator->getNewModelNamespace(); ?>;
 
-<?php echo $generator->getModelUseDirective(); ?>
+<?php echo $generator->getUseDirective(); ?>
 
 class <?php echo $generator->getNewModelName(); ?> extends <?php echo $generator->getModelAlias(); ?>
 
