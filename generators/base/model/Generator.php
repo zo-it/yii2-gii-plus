@@ -11,10 +11,14 @@ class Generator extends YiiGiiModelGenerator
 {
 
     public $ns = 'app\models\base';
+    public $tableName = null;
+    public $modelClass = null;
     public $baseClass = 'yii\boost\db\ActiveRecord';
+    public $generateRelations = true;
     public $generateLabelsFromComments = true;
     public $generateQuery = true;
     public $queryNs = 'app\models\query\base';
+    public $queryClass = null;
     public $queryBaseClass = 'yii\boost\db\ActiveQuery';
     public $use = 'Yii';
 
