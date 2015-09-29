@@ -12,8 +12,9 @@ use yii\gii\CodeFile,
 class Generator extends YiiGiiCrudGenerator
 {
 
-    public $newModelClass;
-    public $newQueryClass;
+    public $modelClass = null;
+    public $newModelClass = null;
+    public $newQueryClass = null;
 
     public function getName()
     {

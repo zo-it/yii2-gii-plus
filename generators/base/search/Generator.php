@@ -12,7 +12,8 @@ use yii\gii\CodeFile,
 class Generator extends YiiGiiCrudGenerator
 {
 
-    public $searchModelClass;
+    public $modelClass = null;
+    public $searchModelClass = null;
 
     public function getName()
     {
