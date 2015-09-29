@@ -5,6 +5,7 @@ namespace yii\gii\plus\generators\base\model;
 use yii\gii\plus\helpers\Helper,
     yii\helpers\Inflector,
     ReflectionClass,
+    Yii,
     yii\gii\generators\model\Generator as YiiGiiModelGenerator;
 
 
@@ -21,6 +22,9 @@ class Generator extends YiiGiiModelGenerator
     public $queryNs = 'app\models\query\base';
     public $queryClass = null;
     public $queryBaseClass = 'yii\boost\db\ActiveQuery';
+
+    protected $fileUseMap = [];
+    protected $use = ['Yii'];
 
     public function getName()
     {
@@ -52,6 +56,14 @@ class Generator extends YiiGiiModelGenerator
         $nsModelClass = $this->ns . '\\' . $this->modelClass;
         if (class_exists($nsModelClass)) {
             $this->baseClass = get_parent_class($nsModelClass);
+            // use
+            $modelPath = Yii::getAlias('@' . str_replace('\\', '/', ltrim($nsModelClass, '\\') . '.php'));
+            if (is_file($modelPath) && preg_match('~use([^;]+);~', file_get_contents($modelPath), $match)) {
+                $use = array_filter(array_map('trim', explode(',', $match[1])), 'strlen');
+                foreach ($use as $value) {
+                    $this->fileUseMap[preg_replace('~^.+[\\\\ ]([^\\\\ ]+)$~', '$1', $value)] = $value;
+                }
+            }
         }
         if ($this->generateQuery) {
             $queryNsQueryClass = $this->queryNs . '\\' . $this->queryClass;
@@ -62,11 +74,8 @@ class Generator extends YiiGiiModelGenerator
         return parent::beforeValidate();
     }
 
-    protected $use = [];
-
     protected function generateRelations()
     {
-        $this->use = ['Yii'];
         $allRelations = parent::generateRelations();
         if (($this->ns != 'app\models') && array_key_exists($this->tableName, $allRelations)) {
             $relations = [];
@@ -81,7 +90,11 @@ class Generator extends YiiGiiModelGenerator
                         $relationName = $className2;
                     }
                 } else {
-                    $this->use[] = 'app\models\\' . $className;
+                    if (array_key_exists($className, $this->fileUseMap)) {
+                        $this->use[] = $this->fileUseMap[$className];
+                    } else {
+                        $this->use[] = 'app\models\\' . $className;
+                    }
                 }
                 $relations[$relationName] = [$code, $className, $hasMany];
             }
