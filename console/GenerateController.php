@@ -54,6 +54,20 @@ class GenerateController extends Controller
         }
     }
 
+    public function actionShowBaseModels()
+    {
+        foreach (Helper::getBaseModelClasses() as $baseModelClass) {
+            $this->stdout($baseModelClass . "\n");
+        }
+    }
+
+    public function actionShowModels()
+    {
+        foreach (Helper::getModelClasses() as $modelClass) {
+            $this->stdout($modelClass . "\n");
+        }
+    }
+
     public function actionShowCommands()
     {
         foreach (Helper::getTableNames() as $tableName) {
