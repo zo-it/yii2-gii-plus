@@ -68,6 +68,20 @@ class GenerateController extends Controller
         }
     }
 
+    public function actionShowBaseSearchModels()
+    {
+        foreach (Helper::getBaseSearchModelClasses() as $baseSearchModelClass) {
+            $this->stdout($baseSearchModelClass . "\n");
+        }
+    }
+
+    public function actionShowSearchModels()
+    {
+        foreach (Helper::getSearchModelClasses() as $searchModelClass) {
+            $this->stdout($searchModelClass . "\n");
+        }
+    }
+
     public function actionShowCommands()
     {
         foreach (Helper::getTableNames() as $tableName) {
