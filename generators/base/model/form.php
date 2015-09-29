@@ -1,10 +1,15 @@
 <?php
 
+use yii\jui\AutoComplete,
+    yii\gii\plus\helpers\FormHelper;
+
 /* @var $this yii\web\View */
 /* @var $generator yii\gii\plus\generators\base\model\Generator */
 /* @var $form yii\widgets\ActiveForm */
 
-echo $form->field($generator, 'tableName');
+echo $form->field($generator, 'tableName')->widget(AutoComplete::classname(), [
+    'clientOptions' => ['source' => FormHelper::getTableNames()]
+]);
 echo $form->field($generator, 'modelClass');
 echo $form->field($generator, 'ns');
 echo $form->field($generator, 'baseClass');

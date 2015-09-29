@@ -3,34 +3,13 @@
 namespace yii\gii\plus\console;
 
 use yii\console\Controller,
+    yii\gii\plus\helpers\FormHelper,
     yii\helpers\Inflector,
-    yii\base\InvalidParamException,
-    yii\base\NotSupportedException,
-    PDO,
-    Yii;
+    yii\base\InvalidParamException;
 
 
 class GenerateController extends Controller
 {
-
-    protected function getTableNames()
-    {
-        $db = Yii::$app->getDb();
-        if (!$db->getIsActive()) {
-            $db->open();
-        }
-        switch ($db->pdo->getAttribute(PDO::ATTR_DRIVER_NAME)) {
-            case 'mysql':
-                $command = $db->createCommand('SHOW TABLES;');
-                break;
-            case 'pgsql':
-                $command = $db->createCommand('SELECT table_name FROM information_schema.tables WHERE table_schema = :table_schema;', [':table_schema' => 'public']);
-                break;
-            default:
-                throw new NotSupportedException;
-        }
-        return $command->queryColumn();
-    }
 
     protected function getCommand($tableName)
     {
@@ -70,21 +49,21 @@ class GenerateController extends Controller
 
     public function actionShowTables()
     {
-        foreach ($this->getTableNames() as $tableName) {
+        foreach (FormHelper::getTableNames() as $tableName) {
             $this->stdout($tableName . "\n");
         }
     }
 
     public function actionShowCommands()
     {
-        foreach ($this->getTableNames() as $tableName) {
+        foreach (FormHelper::getTableNames() as $tableName) {
             $this->stdout($this->getCommand($tableName) . "\n\n");
         }
     }
 
     public function actionShowCommand($tableName)
     {
-        if (!in_array($tableName, $this->getTableNames())) {
+        if (!in_array($tableName, FormHelper::getTableNames())) {
             throw new InvalidParamException;
         }
         $this->stdout($this->getCommand($tableName) . "\n");
@@ -92,14 +71,14 @@ class GenerateController extends Controller
 
     public function actionRunCommands()
     {
-        foreach ($this->getTableNames() as $tableName) {
+        foreach (FormHelper::getTableNames() as $tableName) {
             passthru($this->getCommand($tableName));
         }
     }
 
     public function actionRunCommand($tableName)
     {
-        if (!in_array($tableName, $this->getTableNames())) {
+        if (!in_array($tableName, FormHelper::getTableNames())) {
             throw new InvalidParamException;
         }
         passthru($this->getCommand($tableName));
