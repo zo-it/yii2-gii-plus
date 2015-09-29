@@ -41,13 +41,23 @@ class Generator extends YiiGiiModelGenerator
 
     public function beforeValidate()
     {
-        if (is_null($this->modelClass) || is_null($this->queryClass)) {
+        if (is_null($this->modelClass) || ($this->generateQuery && is_null($this->queryClass))) {
             $className = Inflector::classify($this->tableName);
             if (is_null($this->modelClass)) {
                 $this->modelClass = $className . 'Base';
             }
             if (is_null($this->queryClass)) {
                 $this->queryClass = $className . 'QueryBase';
+            }
+        }
+        $nsModelClass = $this->ns . '\\' . $this->modelClass;
+        if (class_exists($nsModelClass)) {
+            $this->baseClass = get_parent_class($nsModelClass);
+        }
+        if ($this->generateQuery) {
+            $queryNsQueryClass = $this->queryNs . '\\' . $this->queryClass;
+            if (class_exists($queryNsQueryClass)) {
+                $this->queryBaseClass = get_parent_class($queryNsQueryClass);
             }
         }
         if (!is_array($this->use)) {
