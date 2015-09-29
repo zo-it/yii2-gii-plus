@@ -28,6 +28,11 @@ class Generator extends YiiGiiModelGenerator
         return 'Base Model Generator';
     }
 
+    public function getDescription()
+    {
+        return 'This generator generates a Base ActiveRecord class for the specified database table.';
+    }
+
     public function defaultTemplate()
     {
         $class = new ReflectionClass('yii\gii\generators\model\Generator');
