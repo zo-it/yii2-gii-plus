@@ -3,6 +3,7 @@
 namespace yii\gii\plus\generators\search;
 
 use yii\gii\CodeFile,
+    yii\gii\plus\helpers\FormHelper,
     yii\helpers\Inflector,
     yii\helpers\StringHelper,
     Yii,
@@ -123,9 +124,7 @@ class Generator extends YiiGiiCrudGenerator
                 $use[] = $this->getModelClass() . ' as ' . $modelAlias;
             }
         }
-        usort($use, function ($use1, $use2) {
-            return strcasecmp(preg_replace('~^.+[\\\\ ]([^\\\\ ]+)$~', '$1', $use1), preg_replace('~^.+[\\\\ ]([^\\\\ ]+)$~', '$1', $use2));
-        });
+        FormHelper::sortUse($use);
         if (count($use)) {
             $useDirective = 'use ' . implode(',' . "\n" . '    ', $use) . ';';
             return $useDirective . "\n\n";
