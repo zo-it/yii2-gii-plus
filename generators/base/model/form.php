@@ -8,17 +8,21 @@ use yii\gii\plus\widgets\AutoComplete,
 /* @var $form yii\widgets\ActiveForm */
 
 echo $form->field($generator, 'tableName')->widget(AutoComplete::classname(), [
-    'options' => [
-        'class' => 'form-control',
-        'onfocus' => 'jQuery(this).autocomplete(\'search\');'
-    ],
     'clientOptions' => [
         'source' => FormHelper::getTableNames(),
         'minLength' => 0
     ]
 ]);
 echo $form->field($generator, 'modelClass');
-echo $form->field($generator, 'ns');
+echo $form->field($generator, 'ns')->widget(AutoComplete::classname(), [
+    'clientOptions' => [
+        'source' => [
+            'app\models\base',
+            'app\models'
+        ],
+        'minLength' => 0
+    ]
+]);
 echo $form->field($generator, 'baseClass')->widget(AutoComplete::classname(), [
     'clientOptions' => [
         'source' => [
@@ -33,7 +37,16 @@ echo $form->field($generator, 'useTablePrefix')->checkbox();
 echo $form->field($generator, 'generateRelations')->checkbox();
 echo $form->field($generator, 'generateLabelsFromComments')->checkbox();
 echo $form->field($generator, 'generateQuery')->checkbox();
-echo $form->field($generator, 'queryNs');
+echo $form->field($generator, 'queryNs')->widget(AutoComplete::classname(), [
+    'clientOptions' => [
+        'source' => [
+            'app\models\query\base',
+            'app\models\query',
+            'app\models'
+        ],
+        'minLength' => 0
+    ]
+]);
 echo $form->field($generator, 'queryClass')->widget(AutoComplete::classname(), [
     'clientOptions' => [
         'source' => [
