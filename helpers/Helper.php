@@ -27,17 +27,38 @@ class Helper
 
     public static function getBaseModelClasses()
     {
-        return [];
+        $baseModelClasses = [];
+        foreach (glob(Yii::getAlias('@app/models/base') . DIRECTORY_SEPARATOR . '*.php') as $filename) {
+            $baseModelClasses[] = 'app\models\base\\' . basename($filename, '.php');
+        }
+        return $baseModelClasses;
     }
 
     public static function getModelClasses()
     {
-        return [];
+        $modelClasses = [];
+        foreach (glob(Yii::getAlias('@app/models') . DIRECTORY_SEPARATOR . '*.php') as $filename) {
+            $modelClasses[] = 'app\models\\' . basename($filename, '.php');
+        }
+        return $modelClasses;
     }
 
     public static function getBaseSearchModelClasses()
     {
-        return [];
+        $baseSearchModelClasses = [];
+        foreach (glob(Yii::getAlias('@app/models/search/base') . DIRECTORY_SEPARATOR . '*.php') as $filename) {
+            $baseSearchModelClasses[] = 'app\models\search\base\\' . basename($filename, '.php');
+        }
+        return $baseSearchModelClasses;
+    }
+
+    public static function getSearchModelClasses()
+    {
+        $searchModelClasses = [];
+        foreach (glob(Yii::getAlias('@app/models/search') . DIRECTORY_SEPARATOR . '*.php') as $filename) {
+            $searchModelClasses[] = 'app\models\search\\' . basename($filename, '.php');
+        }
+        return $searchModelClasses;
     }
 
     public static function sortUse(array &$use)
