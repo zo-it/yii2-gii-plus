@@ -3,34 +3,13 @@
 namespace yii\gii\plus\console;
 
 use yii\console\Controller,
+    yii\gii\plus\helpers\Helper,
     yii\helpers\Inflector,
-    yii\base\InvalidParamException,
-    yii\base\NotSupportedException,
-    PDO,
-    Yii;
+    yii\base\InvalidParamException;
 
 
 class GenerateController extends Controller
 {
-
-    protected function getTableNames()
-    {
-        $db = Yii::$app->getDb();
-        if (!$db->getIsActive()) {
-            $db->open();
-        }
-        switch ($db->pdo->getAttribute(PDO::ATTR_DRIVER_NAME)) {
-            case 'mysql':
-                $command = $db->createCommand('SHOW TABLES;');
-                break;
-            case 'pgsql':
-                $command = $db->createCommand('SELECT table_name FROM information_schema.tables WHERE table_schema = :table_schema;', [':table_schema' => 'public']);
-                break;
-            default:
-                throw new NotSupportedException;
-        }
-        return $command->queryColumn();
-    }
 
     protected function getCommand($tableName)
     {
@@ -70,21 +49,49 @@ class GenerateController extends Controller
 
     public function actionShowTables()
     {
-        foreach ($this->getTableNames() as $tableName) {
+        foreach (Helper::getTableNames() as $tableName) {
             $this->stdout($tableName . "\n");
+        }
+    }
+
+    public function actionShowBaseModels()
+    {
+        foreach (Helper::getBaseModelClasses() as $baseModelClass) {
+            $this->stdout($baseModelClass . "\n");
+        }
+    }
+
+    public function actionShowModels()
+    {
+        foreach (Helper::getModelClasses() as $modelClass) {
+            $this->stdout($modelClass . "\n");
+        }
+    }
+
+    public function actionShowBaseSearchModels()
+    {
+        foreach (Helper::getBaseSearchModelClasses() as $baseSearchModelClass) {
+            $this->stdout($baseSearchModelClass . "\n");
+        }
+    }
+
+    public function actionShowSearchModels()
+    {
+        foreach (Helper::getSearchModelClasses() as $searchModelClass) {
+            $this->stdout($searchModelClass . "\n");
         }
     }
 
     public function actionShowCommands()
     {
-        foreach ($this->getTableNames() as $tableName) {
+        foreach (Helper::getTableNames() as $tableName) {
             $this->stdout($this->getCommand($tableName) . "\n\n");
         }
     }
 
     public function actionShowCommand($tableName)
     {
-        if (!in_array($tableName, $this->getTableNames())) {
+        if (!in_array($tableName, Helper::getTableNames())) {
             throw new InvalidParamException;
         }
         $this->stdout($this->getCommand($tableName) . "\n");
@@ -92,14 +99,14 @@ class GenerateController extends Controller
 
     public function actionRunCommands()
     {
-        foreach ($this->getTableNames() as $tableName) {
+        foreach (Helper::getTableNames() as $tableName) {
             passthru($this->getCommand($tableName));
         }
     }
 
     public function actionRunCommand($tableName)
     {
-        if (!in_array($tableName, $this->getTableNames())) {
+        if (!in_array($tableName, Helper::getTableNames())) {
             throw new InvalidParamException;
         }
         passthru($this->getCommand($tableName));

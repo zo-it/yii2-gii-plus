@@ -3,6 +3,7 @@
 namespace yii\gii\plus\generators\model;
 
 use yii\gii\CodeFile,
+    yii\gii\plus\helpers\Helper,
     yii\helpers\Inflector,
     yii\helpers\StringHelper,
     Yii,
@@ -12,8 +13,9 @@ use yii\gii\CodeFile,
 class Generator extends YiiGiiCrudGenerator
 {
 
-    public $newModelClass;
-    public $newQueryClass;
+    public $modelClass = null;
+    public $newModelClass = null;
+    public $newQueryClass = null;
 
     public function getName()
     {
@@ -22,7 +24,7 @@ class Generator extends YiiGiiCrudGenerator
 
     public function getDescription()
     {
-        return '';
+        return 'This generator generates an ActiveRecord class for the specified base ActiveRecord class.';
     }
 
     public function attributes()
@@ -177,12 +179,8 @@ class Generator extends YiiGiiCrudGenerator
         if ($this->getNewQueryNamespace() != $this->getNewModelNamespace()) {
             $use[] = $this->getNewQueryClass();
         }
-        usort($use, function ($use1, $use2) {
-            return strcasecmp(preg_replace('~^.+[\\\\ ]([^\\\\ ]+)$~', '$1', $use1), preg_replace('~^.+[\\\\ ]([^\\\\ ]+)$~', '$1', $use2));
-        });
         if (count($use)) {
-            $useDirective = 'use ' . implode(',' . "\n" . '    ', $use) . ';';
-            return $useDirective . "\n\n";
+            return Helper::getUseDirective($use) . "\n\n";
         } else {
             return '';
         }
@@ -199,12 +197,8 @@ class Generator extends YiiGiiCrudGenerator
                 $use[] = $this->getQueryClass() . ' as ' . $queryAlias;
             }
         }
-        usort($use, function ($use1, $use2) {
-            return strcasecmp(preg_replace('~^.+[\\\\ ]([^\\\\ ]+)$~', '$1', $use1), preg_replace('~^.+[\\\\ ]([^\\\\ ]+)$~', '$1', $use2));
-        });
         if (count($use)) {
-            $useDirective = 'use ' . implode(',' . "\n" . '    ', $use) . ';';
-            return $useDirective . "\n\n";
+            return Helper::getUseDirective($use) . "\n\n";
         } else {
             return '';
         }

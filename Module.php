@@ -3,6 +3,8 @@
 namespace yii\gii\plus;
 
 use yii\console\Application as ConsoleApplication,
+    yii\web\Application as WebApplication,
+    Yii,
     yii\gii\Module as YiiGiiModule;
 
 
@@ -11,7 +13,9 @@ class Module extends YiiGiiModule
 
     public function bootstrap($app)
     {
-        if ($app instanceof ConsoleApplication) {
+        if ($app instanceof WebApplication) {
+            $this->setViewPath(Yii::getAlias('@yii/gii/views'));
+        } elseif ($app instanceof ConsoleApplication) {
             $app->controllerMap[$this->id . '-plus'] = ['class' => 'yii\gii\plus\console\GenerateController'];
         }
         parent::bootstrap($app);
