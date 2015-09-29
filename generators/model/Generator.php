@@ -24,7 +24,7 @@ class Generator extends YiiGiiCrudGenerator
 
     public function getDescription()
     {
-        return '';
+        return 'This generator generates an ActiveRecord class for the specified base ActiveRecord class.';
     }
 
     public function attributes()

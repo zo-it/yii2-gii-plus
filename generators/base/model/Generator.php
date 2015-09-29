@@ -30,7 +30,7 @@ class Generator extends YiiGiiModelGenerator
 
     public function getDescription()
     {
-        return 'This generator generates a Base ActiveRecord class for the specified database table.';
+        return 'This generator generates a base ActiveRecord class for the specified database table.';
     }
 
     public function defaultTemplate()
