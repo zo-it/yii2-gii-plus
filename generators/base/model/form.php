@@ -8,7 +8,14 @@ use yii\jui\AutoComplete,
 /* @var $form yii\widgets\ActiveForm */
 
 echo $form->field($generator, 'tableName')->widget(AutoComplete::classname(), [
-    'clientOptions' => ['source' => FormHelper::getTableNames()]
+    'options' => [
+        'class' => 'form-control',
+        'onfocus' => 'jQuery(this).autocomplete(\'search\');'
+    ],
+    'clientOptions' => [
+        'source' => FormHelper::getTableNames(),
+        'minLength' => 0
+    ]
 ]);
 echo $form->field($generator, 'modelClass');
 echo $form->field($generator, 'ns');
