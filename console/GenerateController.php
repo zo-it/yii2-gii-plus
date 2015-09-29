@@ -5,8 +5,7 @@ namespace yii\gii\plus\console;
 use yii\console\Controller,
     yii\gii\plus\helpers\FormHelper,
     yii\helpers\Inflector,
-    yii\base\InvalidParamException,
-    Yii;
+    yii\base\InvalidParamException;
 
 
 class GenerateController extends Controller

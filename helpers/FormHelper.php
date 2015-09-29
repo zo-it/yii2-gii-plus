@@ -24,4 +24,19 @@ class FormHelper
                 return [];
         }
     }
+
+    public static function getBaseModelClasses()
+    {
+        return [];
+    }
+
+    public static function getModelClasses()
+    {
+        return [];
+    }
+
+    public static function getBaseSearchModelClasses()
+    {
+        return [];
+    }
 }

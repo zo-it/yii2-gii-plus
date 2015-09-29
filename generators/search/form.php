@@ -8,7 +8,7 @@ use yii\jui\AutoComplete,
 /* @var $form yii\widgets\ActiveForm */
 
 echo $form->field($generator, 'modelClass')->widget(AutoComplete::classname(), [
-    'clientOptions' => ['source' => []]
+    'clientOptions' => ['source' => FormHelper::getBaseSearchModelClasses()]
 ]);
 echo $form->field($generator, 'newModelClass');
 echo $form->field($generator, 'enableI18N')->checkbox();
