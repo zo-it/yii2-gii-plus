@@ -22,8 +22,6 @@ class Generator extends YiiGiiModelGenerator
     public $queryClass = null;
     public $queryBaseClass = 'yii\boost\db\ActiveQuery';
 
-    protected $use = 'Yii';
-
     public function getName()
     {
         return 'Base Model Generator';
@@ -61,14 +59,14 @@ class Generator extends YiiGiiModelGenerator
                 $this->queryBaseClass = get_parent_class($queryNsQueryClass);
             }
         }
-        if (!is_array($this->use)) {
-            $this->use = array_filter(array_map('trim', explode(',', $this->use)), 'strlen');
-        }
         return parent::beforeValidate();
     }
 
+    protected $use = [];
+
     protected function generateRelations()
     {
+        $this->use = ['Yii'];
         $allRelations = parent::generateRelations();
         if (($this->ns != 'app\models') && array_key_exists($this->tableName, $allRelations)) {
             $relations = [];
